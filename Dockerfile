@@ -4,8 +4,9 @@ RUN apk add --no-cache libc6-compat
 
 # Step 1: Install dependencies
 FROM base AS deps
+ENV NODE_ENV=development
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --include=dev
 
 # Step 2: Build Next.js application
 FROM base AS builder
