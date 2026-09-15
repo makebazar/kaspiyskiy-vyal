@@ -1,5 +1,5 @@
 import React from 'react';
-import { getProducts, getSettings } from '@/lib/storage';
+import { getProducts, getSettings } from '../lib/storage';
 import MainLanding from '@/components/MainLanding';
 import { FAQ_ITEMS } from '@/data/faqData';
 

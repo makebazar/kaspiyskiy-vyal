@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSettings } from '@/lib/storage';
+import { getSettings } from '../../../../lib/storage';
 
 export async function POST(request: Request) {
   try {

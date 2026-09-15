@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { Product, SiteSettings } from '@/types/product';
-import { INITIAL_PRODUCTS, INITIAL_SETTINGS } from '@/data/initialData';
+import { Product, SiteSettings } from '../types/product';
+import { INITIAL_PRODUCTS, INITIAL_SETTINGS } from '../data/initialData';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');

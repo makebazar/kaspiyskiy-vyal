@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Building2, FileText, Phone, Mail, MapPin, Copy, ShieldCheck } from 'lucide-react';
 import RequisitesClient from './RequisitesClient';
-import { getSettings } from '@/lib/storage';
+import { getSettings } from '../../lib/storage';
 
 export const metadata: Metadata = {
   title: 'Публичная оферта и реквизиты ИП | Каспийский вял',

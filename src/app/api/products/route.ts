@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getProducts, saveProducts, getSettings } from '@/lib/storage';
-import { Product } from '@/types/product';
+import { getProducts, saveProducts, getSettings } from '../../../lib/storage';
+import { Product } from '../../../types/product';
 
 export async function GET() {
   const products = getProducts();

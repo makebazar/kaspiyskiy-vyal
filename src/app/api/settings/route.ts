@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSettings, saveSettings } from '@/lib/storage';
+import { getSettings, saveSettings } from '../../../lib/storage';
 
 export async function GET() {
   const settings = getSettings();
