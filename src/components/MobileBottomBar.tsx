@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ShoppingBag, Send, Phone, ArrowRight } from 'lucide-react';
-import { CartItem, SiteSettings } from '@/types/product';
+import { CartItem, SiteSettings } from '../types/product';
 
 interface MobileBottomBarProps {
   cartItems: CartItem[];

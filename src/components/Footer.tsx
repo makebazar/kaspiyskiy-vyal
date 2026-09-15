@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Phone, ShieldCheck } from 'lucide-react';
-import { SiteSettings } from '@/types/product';
+import { SiteSettings } from '../types/product';
 
 interface FooterProps {
   settings: SiteSettings;

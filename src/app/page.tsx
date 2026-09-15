@@ -1,7 +1,7 @@
 import React from 'react';
 import { getProducts, getSettings } from '../lib/storage';
-import MainLanding from '@/components/MainLanding';
-import { FAQ_ITEMS } from '@/data/faqData';
+import MainLanding from '../components/MainLanding';
+import { FAQ_ITEMS } from '../data/faqData';
 
 export const dynamic = 'force-dynamic';
 

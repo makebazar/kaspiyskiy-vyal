@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { CreditCard, Phone, Mail, MapPin, Copy, Check, ShieldCheck, UserCheck } from 'lucide-react';
-import { SiteSettings } from '@/types/product';
+import { SiteSettings } from '../../types/product';
 
 interface RequisitesClientProps {
   settings?: SiteSettings;

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
-import { CartItem, SiteSettings } from '@/types/product';
+import { CartItem, SiteSettings } from '../types/product';
 import { X, Trash2, CheckCircle2, Loader2, ArrowRight, Copy, Check } from 'lucide-react';
 
 interface CartDrawerProps {

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Product, SiteSettings } from '@/types/product';
+import { Product, SiteSettings } from '../types/product';
 import { X, Send, MessageCircle, Phone, CheckCircle2, Loader2, Zap } from 'lucide-react';
 
 interface QuickOrderModalProps {

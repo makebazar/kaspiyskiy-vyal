@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { Product, SiteSettings, ProductCategory, ProductBadge, StockStatus, PriceUnit } from '@/types/product';
+import { Product, SiteSettings, ProductCategory, ProductBadge, StockStatus, PriceUnit } from '../../types/product';
 import {
   Lock,
   Plus,

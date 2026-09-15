@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Send, MessageCircle, Phone, Menu, X, ShieldCheck, ShoppingBag } from 'lucide-react';
-import { SiteSettings } from '@/types/product';
+import { SiteSettings } from '../types/product';
 
 interface HeaderProps {
   settings: SiteSettings;

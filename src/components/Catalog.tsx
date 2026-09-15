@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Product, SiteSettings, ProductCategory, CartItem } from '@/types/product';
+import { Product, SiteSettings, ProductCategory, CartItem } from '../types/product';
 import ProductCard from './ProductCard';
 import { Search, Filter, Check, Layers } from 'lucide-react';
 

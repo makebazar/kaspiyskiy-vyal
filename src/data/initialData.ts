@@ -1,4 +1,4 @@
-import { Product, SiteSettings } from '@/types/product';
+import { Product, SiteSettings } from '../types/product';
 
 export const INITIAL_SETTINGS: SiteSettings = {
   siteName: 'Каспийский вял',

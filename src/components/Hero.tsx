@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { SiteSettings } from '@/types/product';
+import { SiteSettings } from '../types/product';
 
 interface HeroProps {
   settings: SiteSettings;

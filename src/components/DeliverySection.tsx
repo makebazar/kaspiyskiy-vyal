@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShieldCheck, Zap, MapPin } from 'lucide-react';
-import { SiteSettings } from '@/types/product';
+import { SiteSettings } from '../types/product';
 
 interface DeliveryProps {
   settings: SiteSettings;

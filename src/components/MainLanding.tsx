@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Product, SiteSettings, CartItem } from '@/types/product';
+import { Product, SiteSettings, CartItem } from '../types/product';
 import Header from './Header';
 import Hero from './Hero';
 import Features from './Features';

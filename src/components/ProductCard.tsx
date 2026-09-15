@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Product, SiteSettings, CartItem } from '@/types/product';
+import { Product, SiteSettings, CartItem } from '../types/product';
 import { CheckCircle2, AlertCircle, Clock, ShoppingBag, Check } from 'lucide-react';
 
 interface ProductCardProps {

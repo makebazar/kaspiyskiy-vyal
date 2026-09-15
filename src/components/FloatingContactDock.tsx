@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Send, MessageCircle, Phone, X, MessageSquareText } from 'lucide-react';
-import { SiteSettings } from '@/types/product';
+import { SiteSettings } from '../types/product';
 
 interface FloatingContactDockProps {
   settings: SiteSettings;
