@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bgGrad" cx="70%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#0f2647" />
+      <stop offset="60%" stop-color="#08172c" />
+      <stop offset="100%" stop-color="#040b15" />
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf6e9" />
+      <stop offset="50%" stop-color="#eedfc8" />
+      <stop offset="100%" stop-color="#c9b392" />
+    </linearGradient>
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)" />
+
+  <!-- Subtle Border Frame -->
+  <rect x="25" y="25" width="1150" height="580" rx="24" fill="none" stroke="#eedfc8" stroke-opacity="0.2" stroke-width="2" />
+  <rect x="35" y="35" width="1130" height="560" rx="18" fill="none" stroke="#eedfc8" stroke-opacity="0.1" stroke-width="1" />
+
+  <!-- Background Water Waves -->
+  <g opacity="0.1" stroke="#eedfc8" stroke-width="2" fill="none">
+    <path d="M50,480 C200,430 350,530 500,470 C650,410 800,510 950,460 C1100,410 1200,480 1250,460" />
+    <path d="M50,520 C220,470 370,570 520,510 C670,450 820,550 970,500 C1120,450 1200,520 1250,500" />
+    <path d="M50,560 C240,510 390,610 540,550 C690,490 840,590 990,540 C1140,490 1200,560 1250,540" />
+  </g>
+
+  <!-- Logo Emblem -->
+  <g transform="translate(85, 95)">
+    <circle cx="50" cy="50" r="46" fill="#061324" stroke="#eedfc8" stroke-width="2.5" filter="url(#goldGlow)" />
+    <!-- Bird -->
+    <path d="M70,28 C73,25 76,25 78,28 C80,25 83,25 86,28 C82,29 79,31 78,32 C77,31 74,29 70,28 Z" fill="#eedfc8" />
+    <!-- Stream -->
+    <path d="M50,30 C45,42 62,50 42,62" stroke="#eedfc8" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <!-- Waves -->
+    <path d="M15,70 C30,60 40,75 55,65 C70,55 80,70 88,65" stroke="#eedfc8" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <path d="M18,80 C32,70 42,85 58,75 C72,65 82,80 88,76" stroke="#eedfc8" stroke-width="2" stroke-linecap="round" fill="none" />
+  </g>
+
+  <!-- Brand Title -->
+  <g transform="translate(205, 110)">
+    <text x="0" y="28" font-family="'Georgia', serif" font-size="16" font-weight="bold" fill="#eedfc8" letter-spacing="6" opacity="0.85">КАСПИЙСКИЙ</text>
+    <text x="0" y="72" font-family="'Georgia', serif" font-size="44" font-weight="900" fill="url(#goldGrad)" letter-spacing="8">ВЯЛ</text>
+    <line x1="0" y1="88" x2="160" y2="88" stroke="#eedfc8" stroke-width="2" stroke-opacity="0.4" />
+  </g>
+
+  <!-- Main Headline -->
+  <g transform="translate(85, 260)">
+    <text x="0" y="40" font-family="'Georgia', serif" font-size="44" font-weight="bold" fill="#ffffff" letter-spacing="0.5">
+      Настоящая астраханская вобла
+    </text>
+    <text x="0" y="95" font-family="'Georgia', serif" font-size="40" font-weight="bold" fill="url(#goldGrad)">
+      со 100% гарантией икры в каждой рыбке
+    </text>
+    <text x="0" y="150" font-family="sans-serif" font-size="20" fill="#eedfc8" opacity="0.85">
+      Мягкий малосол (4–6% соли) · Плотный вакуум без усушки · Доставка СДЭК за 2–4 дня по РФ
+    </text>
+  </g>
+
+  <!-- 3 Feature Chips -->
+  <g transform="translate(85, 470)">
+    <!-- Chip 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="270" height="52" rx="14" fill="#0c1e36" stroke="#eedfc8" stroke-opacity="0.3" />
+      <text x="24" y="32" font-family="sans-serif" font-size="16" font-weight="bold" fill="#eedfc8">✓ 100% с икрой</text>
+    </g>
+    <!-- Chip 2 -->
+    <g transform="translate(290, 0)">
+      <rect width="320" height="52" rx="14" fill="#0c1e36" stroke="#eedfc8" stroke-opacity="0.3" />
+      <text x="24" y="32" font-family="sans-serif" font-size="16" font-weight="bold" fill="#eedfc8">✓ До 6 месяцев в вакууме</text>
+    </g>
+    <!-- Chip 3 -->
+    <g transform="translate(630, 0)">
+      <rect width="360" height="52" rx="14" fill="#eedfc8" />
+      <text x="24" y="32" font-family="sans-serif" font-size="16" font-weight="900" fill="#08172c">🚀 Отправка в день заказа</text>
+    </g>
+  </g>
+
+  <!-- Right Fish Visual / Decoration -->
+  <g transform="translate(880, 80) scale(0.9)" opacity="0.95">
+    <circle cx="160" cy="160" r="140" fill="#0c1e36" stroke="#eedfc8" stroke-opacity="0.25" stroke-width="2" />
+    <path d="M60,160 C100,100 220,100 260,160 C220,220 100,220 60,160 Z" fill="#eedfc8" fill-opacity="0.15" stroke="#eedfc8" stroke-width="2" />
+    <path d="M60,160 L20,120 L20,200 Z" fill="#eedfc8" fill-opacity="0.2" stroke="#eedfc8" stroke-width="2" />
+    <circle cx="225" cy="150" r="6" fill="#eedfc8" />
+    <path d="M120,130 C150,110 180,110 200,130" stroke="#eedfc8" stroke-width="2" fill="none" stroke-dasharray="4,4" />
+    <text x="160" y="270" font-family="'Georgia', serif" font-size="14" font-weight="bold" fill="#eedfc8" text-anchor="middle" letter-spacing="3">ИЗ АСТРАХАНИ</text>
+  </g>
+</svg>

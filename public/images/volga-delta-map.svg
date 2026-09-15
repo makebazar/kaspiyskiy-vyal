@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" fill="none">
+  <!-- Astrakhan Label & Point -->
+  <circle cx="160" cy="80" r="4" fill="#eedfc8"/>
+  <circle cx="160" cy="80" r="8" stroke="#eedfc8" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/>
+  <text x="160" y="60" text-anchor="middle" fill="#eedfc8" font-family="'Times New Roman', serif" font-size="14" font-weight="700" letter-spacing="4">А С Т Р А Х А Н Ь</text>
+  
+  <!-- Volga Delta branching channels -->
+  <g stroke="#eedfc8" stroke-linecap="round" opacity="0.75">
+    <!-- Main Volga stem -->
+    <path d="M160,84 C150,110 180,140 170,170" stroke-width="2.5"/>
+    
+    <!-- Major Branches -->
+    <path d="M170,170 C140,210 110,250 90,320 C70,390 60,460 50,580" stroke-width="1.8"/>
+    <path d="M170,170 C190,220 210,270 230,340 C250,420 280,500 310,600" stroke-width="2"/>
+    <path d="M170,170 C170,230 160,290 150,370 C140,450 140,540 130,620" stroke-width="1.5"/>
+    
+    <!-- Secondary Delta Ribs & Capillaries -->
+    <path d="M130,220 C100,270 90,350 80,440 C70,510 60,590 55,650" stroke-width="1"/>
+    <path d="M200,250 C230,300 270,380 300,470 C330,550 360,610 380,670" stroke-width="1.2"/>
+    <path d="M150,370 C180,420 200,490 220,580 C230,630 240,670 250,700" stroke-width="1"/>
+    <path d="M90,320 C110,380 120,460 110,550 C100,610 95,660 90,700" stroke-width="0.8"/>
+    <path d="M230,340 C210,400 190,480 180,560 C170,620 165,670 160,700" stroke-width="0.9"/>
+    
+    <path d="M270,380 C320,430 350,510 390,590 C420,640 440,680 460,700" stroke-width="0.7"/>
+    <path d="M70,390 C50,440 40,510 30,590 C20,640 15,680 10,700" stroke-width="0.7"/>
+  </g>
+  
+  <!-- Sea wave bottom boundary -->
+  <path d="M0,680 C100,660 200,700 300,670 C400,650 450,680 500,670" stroke="#eedfc8" stroke-width="1" opacity="0.4"/>
+</svg>

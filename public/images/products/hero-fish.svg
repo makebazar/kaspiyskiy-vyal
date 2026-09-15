@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+    <defs>
+      <radialGradient id="heroBg" cx="50%" cy="50%" r="70%">
+        <stop offset="0%" stop-color="#0f2338"/>
+        <stop offset="60%" stop-color="#0b192c"/>
+        <stop offset="100%" stop-color="#060e18"/>
+      </radialGradient>
+      <linearGradient id="heroRoe" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#fbbf24"/>
+        <stop offset="50%" stop-color="#f59e0b"/>
+        <stop offset="100%" stop-color="#d97706"/>
+      </linearGradient>
+      <filter id="heroGlow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="24" result="blur"/>
+        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+      </filter>
+    </defs>
+    <rect width="800" height="600" fill="url(#heroBg)"/>
+    <!-- Glowing background accent -->
+    <circle cx="420" cy="300" r="220" fill="#f59e0b" opacity="0.16" filter="url(#heroGlow)"/>
+    
+    <!-- Hero Composition: Astrakhan Cured Vobla with rich Amber Roe -->
+    <g transform="translate(80, 70)">
+      <!-- Vacuum pouch outline reflection -->
+      <rect x="50" y="30" width="540" height="380" rx="28" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.35"/>
+      <rect x="52" y="32" width="536" height="376" rx="26" fill="#38bdf8" opacity="0.03"/>
+      
+      <!-- Fish Body -->
+      <path d="M120 220 L40 150 C65 220 65 220 40 290 Z" fill="#92400e"/>
+      <path d="M110 220 C180 130 360 120 520 220 C360 320 180 310 110 220 Z" fill="#b45309"/>
+      
+      <!-- Dorsal fin -->
+      <path d="M300 135 C350 85 410 100 430 155 Z" fill="#78350f" opacity="0.9"/>
+      
+      <!-- Cut with Glowing Caviar / Roe -->
+      <ellipse cx="330" cy="225" rx="110" ry="42" fill="url(#heroRoe)" filter="url(#heroGlow)"/>
+      <g fill="#fffbeb" opacity="0.95">
+        <circle cx="280" cy="215" r="4.8"/><circle cx="300" cy="210" r="5.2"/><circle cx="320" cy="220" r="5.5"/>
+        <circle cx="340" cy="212" r="5.2"/><circle cx="360" cy="222" r="5"/><circle cx="380" cy="215" r="4.6"/>
+        <circle cx="290" cy="235" r="5"/><circle cx="310" cy="242" r="5.4"/><circle cx="330" cy="236" r="5.6"/>
+        <circle cx="350" cy="240" r="5.2"/><circle cx="370" cy="232" r="4.8"/><circle cx="390" cy="228" r="4.4"/>
+      </g>
+      
+      <!-- Fish Head and Eye -->
+      <circle cx="490" cy="210" r="8" fill="#fef3c7"/>
+      <circle cx="491" cy="210" r="4" fill="#0f172a"/>
+      
+      <!-- Golden Oil highlight -->
+      <path d="M210 175 C290 155 400 170 450 200" stroke="#fef3c7" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    </g>
+    
+    <!-- Floating Badges in Image -->
+    <g transform="translate(60, 50)">
+      <rect x="0" y="0" width="160" height="36" rx="18" fill="#d97706" opacity="0.95"/>
+      <text x="80" y="23" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="900" text-anchor="middle" letter-spacing="1">100% С ИКРОЙ</text>
+    </g>
+    <g transform="translate(560, 480)">
+      <rect x="0" y="0" width="190" height="40" rx="20" fill="#08172c" stroke="#eedfc8" stroke-width="1.5"/>
+      <text x="95" y="25" fill="#eedfc8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">ВАКУУМНАЯ УПАКОВКА</text>
+    </g>
+  </svg>

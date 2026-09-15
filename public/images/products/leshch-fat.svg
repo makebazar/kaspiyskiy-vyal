@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+    <defs>
+      <radialGradient id="bg4" cx="50%" cy="50%" r="70%">
+        <stop offset="0%" stop-color="#1e293b"/>
+        <stop offset="100%" stop-color="#0f172a"/>
+      </radialGradient>
+      <linearGradient id="leshchGold" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#78350f"/>
+        <stop offset="35%" stop-color="#d97706"/>
+        <stop offset="70%" stop-color="#f59e0b"/>
+        <stop offset="100%" stop-color="#fef3c7"/>
+      </linearGradient>
+    </defs>
+    <rect width="600" height="450" fill="url(#bg4)"/>
+    <g transform="translate(60, 30)">
+      <!-- Broad bream body -->
+      <path d="M100 190 L40 130 C60 190 60 190 40 250 Z" fill="#92400e"/>
+      <path d="M90 190 C140 80 280 70 410 190 C280 310 140 300 90 190 Z" fill="url(#leshchGold)"/>
+      <circle cx="380" cy="180" r="7" fill="#fef3c7"/>
+      <circle cx="381" cy="180" r="3.5" fill="#0f172a"/>
+      <path d="M220 85 C260 50 310 65 320 105 Z" fill="#78350f"/>
+    </g>
+    <rect x="24" y="24" width="110" height="28" rx="14" fill="#059669" opacity="0.95"/>
+    <text x="79" y="42" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">КРУПНЫЙ</text>
+  </svg>

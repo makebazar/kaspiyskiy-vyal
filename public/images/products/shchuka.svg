@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+    <defs>
+      <radialGradient id="bg6" cx="50%" cy="50%" r="70%">
+        <stop offset="0%" stop-color="#1e293b"/>
+        <stop offset="100%" stop-color="#0f172a"/>
+      </radialGradient>
+      <linearGradient id="shchukaSkin" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#065f46"/>
+        <stop offset="40%" stop-color="#047857"/>
+        <stop offset="80%" stop-color="#b45309"/>
+        <stop offset="100%" stop-color="#1e293b"/>
+      </linearGradient>
+    </defs>
+    <rect width="600" height="450" fill="url(#bg6)"/>
+    <g transform="translate(40, 50)">
+      <!-- Long predatory shape -->
+      <path d="M70 170 L20 130 C35 170 35 170 20 210 Z" fill="#065f46"/>
+      <path d="M60 170 C140 130 350 120 480 165 C350 215 140 210 60 170 Z" fill="url(#shchukaSkin)"/>
+      <circle cx="455" cy="160" r="5.5" fill="#fef3c7"/>
+      <circle cx="456" cy="160" r="2.8" fill="#0f172a"/>
+    </g>
+    <rect x="24" y="24" width="110" height="28" rx="14" fill="#059669" opacity="0.95"/>
+    <text x="79" y="42" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">МАЛОСОЛ</text>
+  </svg>
