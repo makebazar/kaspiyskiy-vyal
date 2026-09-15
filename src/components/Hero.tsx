@@ -1,14 +1,33 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { SiteSettings } from '../types/product';
+import { SiteSettings, Product } from '../types/product';
 
 interface HeroProps {
   settings: SiteSettings;
+  featuredProduct?: Product;
 }
 
-export default function Hero({ settings }: HeroProps) {
+export default function Hero({ settings, featuredProduct }: HeroProps) {
+  const initialImage = settings.heroImage 
+    || (featuredProduct?.images?.[0] && !featuredProduct.images[0].includes('/images/products/') ? featuredProduct.images[0] : '/images/placeholder-logo.svg');
+
+  const [heroImg, setHeroImg] = useState(initialImage);
+
+  useEffect(() => {
+    const updated = settings.heroImage 
+      || (featuredProduct?.images?.[0] && !featuredProduct.images[0].includes('/images/products/') ? featuredProduct.images[0] : '/images/placeholder-logo.svg');
+    setHeroImg(updated);
+  }, [settings.heroImage, featuredProduct]);
+
+  const badgeText = settings.heroBadge || featuredProduct?.badge || 'Астрахань · 100% с икрой';
+  const titleText = settings.heroTitle || featuredProduct?.name || 'Вобла астраханская отборная со 100% икрой';
+  const priceText = settings.heroPriceText || (featuredProduct ? `от ${featuredProduct.price.toLocaleString('ru-RU')} ₽ / ${featuredProduct.unit}` : 'от 1 550 ₽ / кг');
+  const saltingText = settings.heroSalting || 'Малосол (4–6% соли)';
+  const dryingText = settings.heroDrying || 'Традиционное на каспийском ветру';
+  const shelfLifeText = settings.heroShelfLife || 'До 6 месяцев в вакууме';
+
   return (
     <section className="relative pt-24 pb-20 md:pt-28 md:pb-28 overflow-hidden brand-hero-bg text-[#eedfc8]">
       {/* Volga Delta Map Background Overlay on Right */}
@@ -119,40 +138,48 @@ export default function Hero({ settings }: HeroProps) {
 
           {/* Right: Premium Showcase Card */}
           <div className="lg:col-span-5 relative">
-            <div className="rounded-3xl p-6 bg-[#0c1e36] border border-[#eedfc8]/20 shadow-2xl backdrop-blur-md">
+            <a
+              href="#catalog"
+              className="block rounded-3xl p-6 bg-[#0c1e36] border border-[#eedfc8]/20 shadow-2xl backdrop-blur-md group hover:border-[#eedfc8]/40 transition-all"
+            >
               <div className="relative h-60 sm:h-64 rounded-2xl overflow-hidden bg-[#061324] flex items-center justify-center border border-[#eedfc8]/15 mb-4">
                 <img
-                  src="/images/products/vobla-ikra.svg"
-                  alt="Вобла астраханская отборная со 100% икрой"
+                  src={heroImg}
+                  alt={titleText}
                   width={480}
                   height={256}
-                  className="w-full h-full object-cover"
+                  onError={() => setHeroImg('/images/placeholder-logo.svg')}
+                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                 />
                 
-                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#08172c]/90 border border-[#eedfc8]/40 text-[#eedfc8] text-[10px] font-bold uppercase tracking-wider">
-                  Астрахань · 100% с икрой
-                </div>
+                {badgeText && (
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#08172c]/90 border border-[#eedfc8]/40 text-[#eedfc8] text-[10px] font-bold uppercase tracking-wider shadow-md backdrop-blur-xs">
+                    {badgeText}
+                  </div>
+                )}
 
-                <div className="absolute bottom-3 right-3 px-3.5 py-1.5 rounded-xl bg-[#eedfc8] text-[#08172c] text-xs font-black shadow-md tabular-nums">
-                  от 1 550 ₽ / кг
-                </div>
+                {priceText && (
+                  <div className="absolute bottom-3 right-3 px-3.5 py-1.5 rounded-xl bg-[#eedfc8] text-[#08172c] text-xs font-black shadow-md tabular-nums">
+                    {priceText}
+                  </div>
+                )}
               </div>
 
               <div className="space-y-2 text-xs text-[#eedfc8]/80">
                 <div className="flex items-center justify-between py-1.5 border-b border-[#eedfc8]/10">
                   <span className="text-[#eedfc8]/60">Степень просола:</span>
-                  <span className="font-bold text-[#eedfc8]">Малосол (4–6% соли)</span>
+                  <span className="font-bold text-[#eedfc8]">{saltingText}</span>
                 </div>
                 <div className="flex items-center justify-between py-1.5 border-b border-[#eedfc8]/10">
                   <span className="text-[#eedfc8]/60">Вяление:</span>
-                  <span className="font-bold text-[#eedfc8]">Традиционное на каспийском ветру</span>
+                  <span className="font-bold text-[#eedfc8]">{dryingText}</span>
                 </div>
                 <div className="flex items-center justify-between py-1.5">
                   <span className="text-[#eedfc8]/60">Срок хранения:</span>
-                  <span className="font-bold text-[#eedfc8]">До 6 месяцев в вакууме</span>
+                  <span className="font-bold text-[#eedfc8]">{shelfLifeText}</span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
 
         </div>
@@ -161,4 +188,5 @@ export default function Hero({ settings }: HeroProps) {
     </section>
   );
 }
+
 

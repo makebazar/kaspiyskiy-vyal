@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Product, SiteSettings, CartItem } from '../types/product';
+import { Product, SiteSettings, CartItem, Review } from '../types/product';
 import Header from './Header';
 import Hero from './Hero';
 import Features from './Features';
@@ -16,11 +16,12 @@ import CartDrawer from './CartDrawer';
 interface MainLandingProps {
   initialProducts: Product[];
   settings: SiteSettings;
+  initialReviews?: Review[];
 }
 
 const CART_STORAGE_KEY = 'kaspiy_vyal_cart_v1';
 
-export default function MainLanding({ initialProducts, settings }: MainLandingProps) {
+export default function MainLanding({ initialProducts, settings, initialReviews }: MainLandingProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -114,7 +115,7 @@ export default function MainLanding({ initialProducts, settings }: MainLandingPr
 
       {/* Main Content */}
       <main className="flex-1">
-        <Hero settings={settings} />
+        <Hero settings={settings} featuredProduct={initialProducts[0]} />
         <Features />
         <Catalog
           initialProducts={initialProducts}
@@ -123,7 +124,7 @@ export default function MainLanding({ initialProducts, settings }: MainLandingPr
           onAddToCart={handleAddToCart}
         />
         <DeliverySection settings={settings} />
-        <ReviewsSection />
+        <ReviewsSection reviews={initialReviews} />
         <FaqSection />
       </main>
 

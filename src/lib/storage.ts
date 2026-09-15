@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { Product, SiteSettings } from '../types/product';
-import { INITIAL_PRODUCTS, INITIAL_SETTINGS } from '../data/initialData';
+import { Product, SiteSettings, Review } from '../types/product';
+import { INITIAL_PRODUCTS, INITIAL_SETTINGS, INITIAL_REVIEWS } from '../data/initialData';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
+const REVIEWS_FILE = path.join(DATA_DIR, 'reviews.json');
 
 function ensureDataDir() {
   if (!fs.existsSync(DATA_DIR)) {
@@ -65,3 +66,30 @@ export function saveSettings(settings: SiteSettings): boolean {
     return false;
   }
 }
+
+export function getReviews(): Review[] {
+  try {
+    ensureDataDir();
+    if (!fs.existsSync(REVIEWS_FILE)) {
+      fs.writeFileSync(REVIEWS_FILE, JSON.stringify(INITIAL_REVIEWS, null, 2), 'utf-8');
+      return INITIAL_REVIEWS;
+    }
+    const data = fs.readFileSync(REVIEWS_FILE, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading reviews:', error);
+    return INITIAL_REVIEWS;
+  }
+}
+
+export function saveReviews(reviews: Review[]): boolean {
+  try {
+    ensureDataDir();
+    fs.writeFileSync(REVIEWS_FILE, JSON.stringify(reviews, null, 2), 'utf-8');
+    return true;
+  } catch (error) {
+    console.error('Error saving reviews:', error);
+    return false;
+  }
+}
+

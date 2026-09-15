@@ -30,9 +30,11 @@ export default function ProductCard({
   const isAvailable = product.status === 'in_stock';
   const isPreorder = product.status === 'preorder';
 
-  const imageSrc = product.images && product.images.length > 0
+  const initialImage = product.images && product.images.length > 0 && product.images[0] && !product.images[0].includes('/images/products/')
     ? product.images[0]
-    : '/images/products/vobla-ikra.svg';
+    : '/images/placeholder-logo.svg';
+
+  const [cardImg, setCardImg] = useState(initialImage);
 
   const handleAddToCart = () => {
     if (!onAddToCart) return;
@@ -46,7 +48,7 @@ export default function ProductCard({
       weightMultiplier: selectedWeight.multiplier,
       quantity: 1,
       totalPrice: currentPrice,
-      image: imageSrc,
+      image: cardImg,
     };
     onAddToCart(cartItem);
     setAddedAnimation(true);
@@ -58,10 +60,11 @@ export default function ProductCard({
       {/* Product Visual Box */}
       <div className="relative h-52 sm:h-56 w-full bg-[#08172c] flex items-center justify-center overflow-hidden group">
         <img
-          src={imageSrc}
+          src={cardImg}
           alt={product.name}
           width={400}
           height={240}
+          onError={() => setCardImg('/images/placeholder-logo.svg')}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
         />

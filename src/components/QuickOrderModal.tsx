@@ -46,6 +46,28 @@ export default function QuickOrderModal({
     e.preventDefault();
     setLoading(true);
 
+    const rawText = 
+      `🛒 Быстрый заказ с сайта «Каспийский вял»:\n\n` +
+      `• Товар: ${product.name}\n` +
+      `• Фасовка: ${weightName}\n` +
+      `• Количество: ${quantity} шт\n` +
+      `• Сумма: ${totalPrice.toLocaleString('ru-RU')} ₽\n\n` +
+      `👤 Имя: ${name || 'Покупатель'}\n` +
+      `📱 Телефон: ${phone}\n` +
+      (comment ? `💬 Пожелания: ${comment}\n\n` : '\n') +
+      `Здравствуйте! Хочу оформить этот заказ с доставкой СДЭК/Почтой.`;
+
+    const encodedText = encodeURIComponent(rawText);
+
+    // Immediate clipboard copy
+    try {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(rawText);
+      }
+    } catch (e) {
+      console.warn('Clipboard write ignored', e);
+    }
+
     try {
       const res = await fetch('/api/order', {
         method: 'POST',
@@ -65,28 +87,20 @@ export default function QuickOrderModal({
       if (res.ok) {
         setSuccess(true);
 
+        let targetUrl = '';
         if (messenger === 'telegram') {
-          const text = encodeURIComponent(
-            `🛒 Быстрый заказ с сайта «Каспийский вял»:\n\n` +
-            `• Товар: ${product.name}\n` +
-            `• Фасовка: ${weightName}\n` +
-            `• Количество: ${quantity} шт\n` +
-            `• Сумма: ${totalPrice.toLocaleString('ru-RU')} ₽\n\n` +
-            `👤 Имя: ${name || 'Покупатель'}\n` +
-            `📱 Телефон: ${phone}\n` +
-            (comment ? `💬 Пожелания: ${comment}` : '')
-          );
-          setTimeout(() => {
-            window.open(`https://t.me/${settings.telegramUsername}?text=${text}`, '_blank');
-          }, 600);
+          let tg = (settings.telegramBotOrChannelUrl || settings.telegramUsername || 'kaspiy_vyal').trim();
+          tg = tg.replace(/^https?:\/\/(www\.)?t\.me\//i, '').replace(/^@/, '');
+          if (!tg) tg = 'kaspiy_vyal';
+          targetUrl = `https://t.me/${tg}?text=${encodedText}`;
         } else if (messenger === 'vk') {
-          setTimeout(() => {
-            window.open(settings.vkChatUrl || settings.vkGroupUrl, '_blank');
-          }, 600);
+          targetUrl = settings.vkChatUrl || settings.vkGroupUrl || 'https://vk.me/kaspiy_vyal';
         } else if (messenger === 'max') {
-          setTimeout(() => {
-            window.open(settings.maxChatUrl || `https://max.ru/${settings.telegramUsername || 'kaspiy_vyal'}`, '_blank');
-          }, 600);
+          targetUrl = settings.maxChatUrl || `https://max.ru/${settings.telegramUsername || 'kaspiy_vyal'}`;
+        }
+
+        if (targetUrl) {
+          window.open(targetUrl, '_blank');
         }
       }
     } catch (err) {

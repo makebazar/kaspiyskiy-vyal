@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { Product, SiteSettings, ProductCategory, ProductBadge, StockStatus, PriceUnit } from '../../types/product';
+import { Product, SiteSettings, ProductCategory, ProductBadge, StockStatus, PriceUnit, Review } from '../../types/product';
 import {
   Lock,
   Plus,
@@ -30,15 +30,19 @@ import {
   Building2,
   Globe,
   Sliders,
+  Star,
+  ThumbsUp,
+  MessageSquare,
 } from 'lucide-react';
 
 export default function AdminPage() {
   const [pin, setPin] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const [activeTab, setActiveTab] = useState<'products' | 'settings'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'reviews' | 'settings'>('products');
 
   const [products, setProducts] = useState<Product[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
@@ -47,11 +51,16 @@ export default function AdminPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
-  // Edit / Add Modal state
+  // Edit / Add Product Modal state
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Partial<Product> | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [featuresText, setFeaturesText] = useState('');
+
+  // Reviews State
+  const [reviewSearchQuery, setReviewSearchQuery] = useState('');
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [editingReview, setEditingReview] = useState<Partial<Review> | null>(null);
 
   // Check saved session PIN
   useEffect(() => {
@@ -77,6 +86,7 @@ export default function AdminPage() {
         sessionStorage.setItem('admin_pin', inputPin);
         setSettings(data.settings);
         fetchProducts();
+        fetchReviews();
       } else {
         setLoginError('Неверный PIN-код доступа');
         sessionStorage.removeItem('admin_pin');
@@ -93,6 +103,16 @@ export default function AdminPage() {
       const res = await fetch('/api/products');
       const data = await res.json();
       setProducts(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch('/api/reviews');
+      const data = await res.json();
+      setReviews(data);
     } catch (err) {
       console.error(err);
     }
@@ -121,7 +141,7 @@ export default function AdminPage() {
         weightInfo: 'Размер 19-23 см (5-7 шт в 1 кг)',
         description: 'Отборная вяленая рыба традиционного астраханского посола.',
         tasteProfile: 'Мягкий малосол, янтарный жирок на срезе',
-        images: ['/images/products/vobla-ikra.svg'],
+        images: ['/images/placeholder-logo.svg'],
         features: ['100% с икрой', 'Вакуумная упаковка', 'Честный вес'],
       });
       setFeaturesText('100% с икрой, Вакуумная упаковка, Честный вес');
@@ -319,6 +339,95 @@ export default function AdminPage() {
     }
   };
 
+  // Open Review Modal
+  const openReviewModal = (review?: Review) => {
+    if (review) {
+      setEditingReview({ ...review });
+    } else {
+      setEditingReview({
+        name: '',
+        city: 'Москва',
+        fish: 'Вобла с икрой (2 кг)',
+        rating: 5,
+        date: 'Только что',
+        text: '',
+        verified: true,
+      });
+    }
+    setIsReviewModalOpen(true);
+  };
+
+  // Save Review (Create or Update)
+  const handleSaveReview = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingReview?.name || !editingReview?.text) return;
+
+    setLoading(true);
+    const action = editingReview.id ? 'update' : 'create';
+
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pin,
+          action,
+          review: editingReview,
+        }),
+      });
+
+      if (res.ok) {
+        setStatusMessage({ text: 'Отзыв успешно сохранен!', type: 'success' });
+        setIsReviewModalOpen(false);
+        setEditingReview(null);
+        fetchReviews();
+      } else {
+        setStatusMessage({ text: 'Ошибка при сохранении отзыва', type: 'error' });
+      }
+    } catch (err) {
+      setStatusMessage({ text: 'Ошибка соединения', type: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Delete Review
+  const handleDeleteReview = async (reviewId: string) => {
+    if (!confirm('Вы действительно хотите удалить этот отзыв?')) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pin,
+          action: 'delete',
+          reviewId,
+        }),
+      });
+
+      if (res.ok) {
+        setStatusMessage({ text: 'Отзыв удален', type: 'success' });
+        fetchReviews();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Clone Review
+  const handleCloneReview = (review: Review) => {
+    setEditingReview({
+      ...review,
+      id: undefined,
+      name: `${review.name} (Копия)`,
+    });
+    setIsReviewModalOpen(true);
+  };
+
   // Filtered products
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
@@ -332,6 +441,19 @@ export default function AdminPage() {
       return matchesSearch && matchesCat;
     });
   }, [products, searchQuery, categoryFilter]);
+
+  // Filtered reviews
+  const filteredReviews = useMemo(() => {
+    return reviews.filter((r) => {
+      const q = reviewSearchQuery.toLowerCase();
+      return (
+        r.name.toLowerCase().includes(q) ||
+        r.city.toLowerCase().includes(q) ||
+        r.fish.toLowerCase().includes(q) ||
+        r.text.toLowerCase().includes(q)
+      );
+    });
+  }, [reviews, reviewSearchQuery]);
 
   // Statistics summary
   const stats = useMemo(() => {
@@ -422,7 +544,7 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Navigation Tabs (Only Products and Settings) */}
+          {/* Navigation Tabs (Products, Reviews, Settings) */}
           <div className="flex items-center gap-1.5 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60">
             <button
               onClick={() => setActiveTab('products')}
@@ -434,6 +556,18 @@ export default function AdminPage() {
             >
               <Layers className="w-3.5 h-3.5" />
               <span>Каталог рыбы ({products.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('reviews')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                activeTab === 'reviews'
+                  ? 'bg-[#eedfc8] text-[#08172c] shadow-xs'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>Отзывы ({reviews.length})</span>
             </button>
 
             <button
@@ -713,7 +847,138 @@ export default function AdminPage() {
         )}
 
         {/* ======================================================== */}
-        {/* TAB 2: SETTINGS, MESSENGERS & COMPANY REQUISITES */}
+        {/* TAB 2: REVIEWS MANAGEMENT */}
+        {/* ======================================================== */}
+        {activeTab === 'reviews' && (
+          <div className="space-y-6">
+            {/* Header & Actions */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
+              <div>
+                <h1 className="text-xl font-black text-slate-900 tracking-tight">Отзывы покупателей</h1>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Управляйте отзывами реальных клиентов, оценками, городами и статусом проверенного покупателя.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  onClick={() => openReviewModal()}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#08172c] hover:bg-[#0e2444] text-[#eedfc8] font-bold text-xs uppercase tracking-wider shadow-sm transition-all"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Добавить отзыв</span>
+                </button>
+
+                <button
+                  onClick={fetchReviews}
+                  className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                  title="Обновить отзывы"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Review Search */}
+            <div className="relative">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Поиск по имени, городу, рыбе или тексту отзыва..."
+                value={reviewSearchQuery}
+                onChange={(e) => setReviewSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 bg-white rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#08172c] focus:ring-1 focus:ring-[#08172c]"
+              />
+            </div>
+
+            {/* Reviews Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredReviews.map((r) => (
+                <div
+                  key={r.id}
+                  className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all space-y-4"
+                >
+                  <div>
+                    {/* Top Row: Author & Badges */}
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <h3 className="font-bold text-slate-900 text-sm">{r.name}</h3>
+                          {r.verified && (
+                            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                              <ShieldCheck className="w-3 h-3" />
+                              <span>Проверен</span>
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-0.5">
+                          {r.city} {r.fish ? `• Заказ: ${r.fish}` : ''}
+                        </p>
+                      </div>
+
+                      {/* Star Rating */}
+                      <div className="flex items-center gap-0.5 text-amber-400 bg-amber-50/60 px-2 py-1 rounded-lg shrink-0">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-3 h-3 ${
+                              i < (r.rating || 5) ? 'fill-amber-400 text-amber-400' : 'text-slate-200'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Review Text */}
+                    <p className="text-xs text-slate-700 leading-relaxed mt-3 bg-slate-50/50 p-3 rounded-2xl border border-slate-100">
+                      «{r.text}»
+                    </p>
+                  </div>
+
+                  {/* Footer Date & Actions */}
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-100 text-xs text-slate-400">
+                    <span className="text-[10px]">{r.date || 'Недавно'}</span>
+
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => handleCloneReview(r)}
+                        className="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors"
+                        title="Клонировать отзыв"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                      </button>
+
+                      <button
+                        onClick={() => openReviewModal(r)}
+                        className="p-1.5 rounded-lg bg-sky-50 text-sky-700 hover:bg-sky-100 transition-colors"
+                        title="Редактировать отзыв"
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+
+                      <button
+                        onClick={() => handleDeleteReview(r.id)}
+                        className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors"
+                        title="Удалить отзыв"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {filteredReviews.length === 0 && (
+              <div className="bg-white text-center py-12 px-4 rounded-3xl border border-slate-200">
+                <p className="text-xs text-slate-500">Отзывы не найдены. Попробуйте изменить поисковый запрос или добавьте новый отзыв.</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ======================================================== */}
+        {/* TAB 3: SETTINGS, MESSENGERS & COMPANY REQUISITES */}
         {/* ======================================================== */}
         {activeTab === 'settings' && settings && (
           <form onSubmit={handleSaveSettings} className="space-y-6">
@@ -739,6 +1004,170 @@ export default function AdminPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               
+              {/* CARD 0: Hero Showcase Card Management */}
+              <div className="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h2 className="text-sm font-bold text-slate-900">Главный экран (Hero) — Карточка деликатеса</h2>
+                      <p className="text-[11px] text-slate-400">Управляйте фото, ценой, бейджем и характеристиками карточки на первом экране сайта</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  {/* Left Column: Image & Preview */}
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="block font-bold text-slate-800 text-xs">
+                        📷 Фотография для карточки первого экрана:
+                      </label>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <input
+                        type="text"
+                        value={settings.heroImage || ''}
+                        onChange={(e) => setSettings({ ...settings, heroImage: e.target.value })}
+                        placeholder="Вставьте ссылку на фото или оставьте пустым для лого-заглушки"
+                        className="flex-1 px-3.5 py-2 rounded-xl bg-white border border-slate-300 focus:outline-none focus:border-[#08172c] text-xs"
+                      />
+
+                      <label className="cursor-pointer px-4 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 shrink-0 transition-colors shadow-2xs">
+                        <Upload className="w-3.5 h-3.5 text-sky-600" />
+                        <span>{uploadingImage ? 'Загрузка...' : 'Загрузить файл'}</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            setUploadingImage(true);
+                            const formData = new FormData();
+                            formData.append('file', file);
+                            formData.append('pin', pin);
+                            try {
+                              const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+                              const data = await res.json();
+                              if (res.ok && data.url) {
+                                setSettings({ ...settings, heroImage: data.url });
+                              }
+                            } catch (err) {
+                              console.error(err);
+                            } finally {
+                              setUploadingImage(false);
+                            }
+                          }}
+                          disabled={uploadingImage}
+                          className="hidden"
+                        />
+                      </label>
+                    </div>
+
+                    {/* Preview box */}
+                    <div className="p-3 bg-[#08172c] rounded-2xl border border-slate-200 flex items-center gap-4">
+                      <div className="w-24 h-20 rounded-xl bg-[#061324] border border-[#eedfc8]/20 overflow-hidden flex items-center justify-center shrink-0">
+                        <img
+                          src={settings.heroImage || '/images/placeholder-logo.svg'}
+                          alt="Предпросмотр Hero"
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = '/images/placeholder-logo.svg';
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0 text-[#eedfc8]">
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-[#dfa143] block">
+                          {settings.heroBadge || 'Астрахань · 100% с икрой'}
+                        </span>
+                        <p className="text-xs font-bold truncate mt-0.5">
+                          {settings.heroTitle || 'Вобла астраханская отборная со 100% икрой'}
+                        </p>
+                        <span className="text-[11px] font-mono text-[#eedfc8]/80 font-bold block mt-1">
+                          {settings.heroPriceText || 'от 1 550 ₽ / кг'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Texts & Specs */}
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">Бейдж на фото:</label>
+                        <input
+                          type="text"
+                          value={settings.heroBadge || ''}
+                          onChange={(e) => setSettings({ ...settings, heroBadge: e.target.value })}
+                          placeholder="АСТРАХАНЬ • 100% С ИКРОЙ"
+                          className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-[#08172c]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">Текст цены в карточке:</label>
+                        <input
+                          type="text"
+                          value={settings.heroPriceText || ''}
+                          onChange={(e) => setSettings({ ...settings, heroPriceText: e.target.value })}
+                          placeholder="от 1 550 ₽ / кг"
+                          className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-[#08172c]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Название рыбы / товара:</label>
+                      <input
+                        type="text"
+                        value={settings.heroTitle || ''}
+                        onChange={(e) => setSettings({ ...settings, heroTitle: e.target.value })}
+                        placeholder="Вобла астраханская отборная со 100% икрой"
+                        className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-[#08172c]"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">Степень просола:</label>
+                        <input
+                          type="text"
+                          value={settings.heroSalting || ''}
+                          onChange={(e) => setSettings({ ...settings, heroSalting: e.target.value })}
+                          placeholder="Малосол (4–6% соли)"
+                          className="w-full px-2.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#08172c]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">Вяление:</label>
+                        <input
+                          type="text"
+                          value={settings.heroDrying || ''}
+                          onChange={(e) => setSettings({ ...settings, heroDrying: e.target.value })}
+                          placeholder="Традиционное на каспийском ветру"
+                          className="w-full px-2.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#08172c]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">Срок хранения:</label>
+                        <input
+                          type="text"
+                          value={settings.heroShelfLife || ''}
+                          onChange={(e) => setSettings({ ...settings, heroShelfLife: e.target.value })}
+                          placeholder="До 6 месяцев в вакууме"
+                          className="w-full px-2.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#08172c]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* CARD 1: Messengers Checkout Links (Critical for Cart) */}
               <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
                 <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
@@ -1302,7 +1731,7 @@ export default function AdminPage() {
                         alt="Предпросмотр"
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/products/vobla-ikra.svg';
+                          (e.target as HTMLImageElement).src = '/images/placeholder-logo.svg';
                         }}
                       />
                     </div>
@@ -1378,6 +1807,167 @@ export default function AdminPage() {
                   className="px-6 py-2.5 rounded-xl bg-[#08172c] hover:bg-[#0e2444] text-[#eedfc8] font-bold text-xs uppercase tracking-wider shadow-sm transition-all"
                 >
                   {loading ? 'Сохранение...' : 'Сохранить рыбу'}
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* REVIEW ADD / EDIT MODAL */}
+      {/* ======================================================== */}
+      {isReviewModalOpen && editingReview && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto flex flex-col">
+            
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-white px-6 py-4 border-b border-slate-100 flex items-center justify-between z-20">
+              <div>
+                <h3 className="text-base font-black text-slate-900">
+                  {editingReview.id ? 'Редактировать отзыв' : 'Добавить новый отзыв'}
+                </h3>
+                <span className="text-[11px] text-slate-400">
+                  Заполните текст, имя автора, оценку и город
+                </span>
+              </div>
+              <button
+                onClick={() => setIsReviewModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center text-xs font-bold transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Form */}
+            <form onSubmit={handleSaveReview} className="p-6 space-y-4 text-xs flex-1">
+              
+              {/* Author Name */}
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Имя и фамилия покупателя: <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={editingReview.name || ''}
+                  onChange={(e) => setEditingReview({ ...editingReview, name: e.target.value })}
+                  placeholder="Константин М., Алексей В."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#08172c]"
+                />
+              </div>
+
+              {/* City and Ordered Fish */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Город покупателя:</label>
+                  <input
+                    type="text"
+                    value={editingReview.city || ''}
+                    onChange={(e) => setEditingReview({ ...editingReview, city: e.target.value })}
+                    placeholder="Москва, Санкт-Петербург, Самара"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#08172c]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Заказанная рыба / набор:</label>
+                  <input
+                    type="text"
+                    value={editingReview.fish || ''}
+                    onChange={(e) => setEditingReview({ ...editingReview, fish: e.target.value })}
+                    placeholder="Вобла с икрой (2 кг), Набор «Каспий»"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#08172c]"
+                  />
+                </div>
+              </div>
+
+              {/* Date and Rating */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Дата отзыва:</label>
+                  <input
+                    type="text"
+                    value={editingReview.date || ''}
+                    onChange={(e) => setEditingReview({ ...editingReview, date: e.target.value })}
+                    placeholder="Вчера, 3 дня назад, 12 мая"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#08172c]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Оценка (звезды):</label>
+                  <div className="flex items-center gap-1.5 pt-1">
+                    {[1, 2, 3, 4, 5].map((starVal) => (
+                      <button
+                        type="button"
+                        key={starVal}
+                        onClick={() => setEditingReview({ ...editingReview, rating: starVal })}
+                        className="p-1 rounded-lg hover:bg-amber-50 transition-colors"
+                      >
+                        <Star
+                          className={`w-5 h-5 ${
+                            starVal <= (editingReview.rating || 5)
+                              ? 'fill-amber-400 text-amber-400'
+                              : 'text-slate-200'
+                          }`}
+                        />
+                      </button>
+                    ))}
+                    <span className="text-xs font-bold text-slate-600 ml-2">
+                      {editingReview.rating || 5} из 5
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Verified Badge Checkbox */}
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <label className="flex items-center gap-2.5 cursor-pointer font-bold text-slate-800">
+                  <input
+                    type="checkbox"
+                    checked={editingReview.verified !== false}
+                    onChange={(e) => setEditingReview({ ...editingReview, verified: e.target.checked })}
+                    className="w-4 h-4 rounded text-[#08172c] focus:ring-0 cursor-pointer"
+                  />
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <span>Отметка «Проверенный покупатель» (зеленая плашка)</span>
+                  </div>
+                </label>
+              </div>
+
+              {/* Review Text */}
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Текст отзыва: <span className="text-rose-500">*</span>
+                </label>
+                <textarea
+                  rows={4}
+                  required
+                  value={editingReview.text || ''}
+                  onChange={(e) => setEditingReview({ ...editingReview, text: e.target.value })}
+                  placeholder="Заказывал воблу с икрой. Доставка СДЭКом в Москву за 2 дня. Рыба свежайшая, малосол идеальный, икра в каждой рыбке..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#08172c]"
+                />
+              </div>
+
+              {/* Modal Buttons */}
+              <div className="flex items-center justify-end gap-2 pt-4 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsReviewModalOpen(false)}
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors"
+                >
+                  Отмена
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-6 py-2.5 rounded-xl bg-[#08172c] hover:bg-[#0e2444] text-[#eedfc8] font-bold text-xs uppercase tracking-wider shadow-sm transition-all"
+                >
+                  {loading ? 'Сохранение...' : 'Сохранить отзыв'}
                 </button>
               </div>
 

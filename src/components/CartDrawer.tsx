@@ -83,18 +83,34 @@ export default function CartDrawer({
 
   const handleCheckout = async (selectedMessenger: 'telegram' | 'vk' | 'max') => {
     if (cartItems.length === 0) return;
-    setLoading(true);
 
     const orderText = generateOrderText();
     const encodedText = encodeURIComponent(orderText);
 
-    // Try to copy to clipboard for user convenience
+    // Copy to clipboard immediately while in user gesture
     try {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(orderText);
+        setCopied(true);
       }
     } catch (e) {
       console.warn('Clipboard write ignored', e);
+    }
+
+    setLoading(true);
+
+    // Prepare clean target URL
+    let messengerUrl = '';
+    if (selectedMessenger === 'telegram') {
+      let tg = (settings.telegramBotOrChannelUrl || settings.telegramUsername || 'kaspiy_vyal').trim();
+      tg = tg.replace(/^https?:\/\/(www\.)?t\.me\//i, '').replace(/^@/, '');
+      if (!tg) tg = 'kaspiy_vyal';
+      messengerUrl = `https://t.me/${tg}?text=${encodedText}`;
+    } else if (selectedMessenger === 'vk') {
+      messengerUrl = settings.vkChatUrl || settings.vkGroupUrl || 'https://vk.me/kaspiy_vyal';
+    } else if (selectedMessenger === 'max') {
+      let max = (settings.maxChatUrl || `https://max.ru/${settings.telegramUsername || 'kaspiy_vyal'}`).trim();
+      messengerUrl = max;
     }
 
     // Save lead in background for admin panel tracking
@@ -124,25 +140,10 @@ export default function CartDrawer({
     setLoading(false);
     setSuccess(true);
 
-    // Redirect to chosen messenger with prepared message
-    setTimeout(() => {
-      if (selectedMessenger === 'telegram') {
-        let tg = (settings.telegramBotOrChannelUrl || settings.telegramUsername || 'kaspiy_vyal').trim();
-        if (tg.startsWith('@')) tg = tg.slice(1);
-        if (tg.startsWith('http://') || tg.startsWith('https://')) {
-          const separator = tg.includes('?') ? '&' : '?';
-          window.open(`${tg}${separator}text=${encodedText}`, '_blank');
-        } else {
-          window.open(`https://t.me/${tg}?text=${encodedText}`, '_blank');
-        }
-      } else if (selectedMessenger === 'vk') {
-        const vkUrl = settings.vkChatUrl || settings.vkGroupUrl || 'https://vk.me/kaspiy_vyal';
-        window.open(vkUrl, '_blank');
-      } else if (selectedMessenger === 'max') {
-        const maxUrl = settings.maxChatUrl || `https://max.ru/${settings.telegramUsername || 'kaspiy_vyal'}`;
-        window.open(maxUrl, '_blank');
-      }
-    }, 400);
+    // Open messenger in new tab
+    if (messengerUrl) {
+      window.open(messengerUrl, '_blank');
+    }
   };
 
   const handleReset = () => {
@@ -279,11 +280,19 @@ export default function CartDrawer({
                         key={item.id}
                         className="p-3.5 rounded-2xl bg-white border border-[#e8decb] shadow-2xs flex items-center justify-between gap-3"
                       >
-                        {item.image && (
-                          <div className="w-14 h-14 rounded-xl bg-[#08172c] overflow-hidden shrink-0 border border-[#e8decb]">
-                            <img src={item.image} alt={item.name} className="w-full h-full object-cover" width={56} height={56} loading="lazy" />
-                          </div>
-                        )}
+                        <div className="w-14 h-14 rounded-xl bg-[#08172c] overflow-hidden shrink-0 border border-[#e8decb]">
+                          <img
+                            src={item.image && !item.image.includes('/images/products/') ? item.image : '/images/placeholder-logo.svg'}
+                            alt={item.name}
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = '/images/placeholder-logo.svg';
+                            }}
+                            className="w-full h-full object-cover"
+                            width={56}
+                            height={56}
+                            loading="lazy"
+                          />
+                        </div>
 
                         <div className="flex-1 min-w-0">
                           <h4 className="text-xs font-bold text-[#08172c] truncate">{item.name}</h4>

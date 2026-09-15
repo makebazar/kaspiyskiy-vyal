@@ -65,6 +65,14 @@ export interface SiteSettings {
   workHours: string;
   deliveryNotice: string;
   adminPin: string; // default "7788"
+  // Hero Showcase Card settings (Управление карточкой на первом экране)
+  heroBadge?: string; // "АСТРАХАНЬ • 100% С ИКРОЙ"
+  heroTitle?: string; // "Вобла астраханская отборная со 100% икрой"
+  heroPriceText?: string; // "от 1 550 ₽ / кг"
+  heroSalting?: string; // "Малосол (4–6% соли)"
+  heroDrying?: string; // "Традиционное на каспийском ветру"
+  heroShelfLife?: string; // "До 6 месяцев в вакууме"
+  heroImage?: string; // Ссылка на фото или загрузка
   // Company & Requisites
   companyName?: string; // "Индивидуальный предприниматель Дубоносова Светлана Валерьевна"
   companyShortName?: string; // "ИП Дубоносова Светлана Валерьевна"
@@ -95,4 +103,16 @@ export interface QuickOrderRequest {
   items?: CartItem[];
   totalAmount?: number;
 }
+
+export interface Review {
+  id: string;
+  name: string;
+  city: string;
+  fish: string;
+  rating: number;
+  date: string;
+  text: string;
+  verified?: boolean;
+}
+
 

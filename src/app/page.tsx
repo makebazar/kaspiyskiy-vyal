@@ -1,5 +1,5 @@
 import React from 'react';
-import { getProducts, getSettings } from '../lib/storage';
+import { getProducts, getSettings, getReviews } from '../lib/storage';
 import MainLanding from '../components/MainLanding';
 import { FAQ_ITEMS } from '../data/faqData';
 
@@ -8,6 +8,7 @@ export const dynamic = 'force-dynamic';
 export default function HomePage() {
   const products = getProducts();
   const settings = getSettings();
+  const reviews = getReviews();
 
   const jsonLdStore = {
     '@context': 'https://schema.org',
@@ -145,7 +146,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProducts) }}
       />
 
-      <MainLanding initialProducts={products} settings={settings} />
+      <MainLanding initialProducts={products} settings={settings} initialReviews={reviews} />
     </>
   );
 }

@@ -1,57 +1,14 @@
 import React from 'react';
-import { Star, CheckCircle, ThumbsUp, ShieldCheck } from 'lucide-react';
+import { Star, CheckCircle, ThumbsUp } from 'lucide-react';
+import { Review } from '../types/product';
+import { INITIAL_REVIEWS } from '../data/initialData';
 
-export default function ReviewsSection() {
-  const reviews = [
-    {
-      name: 'Михаил Ковалев',
-      city: 'Москва',
-      fish: 'Вобла с икрой (2 кг) + Судак книжкой (1 кг)',
-      rating: 5,
-      date: '3 дня назад',
-      text: 'Вобла просто восторг! Из 12 штук абсолютно все оказались с тугой, крупной зрелой икрой от головы до хвоста. Жирок течет по пальцам, но соли ровно в меру: настоящий астраханский малосол. До пункта СДЭКа в Москве доехало за 2 дня в идеальном плотном вакууме.',
-    },
-    {
-      name: 'Сергей и Елена',
-      city: 'Санкт-Петербург',
-      fish: 'Подарочный набор «Каспийский улов» (3 кг)',
-      rating: 5,
-      date: 'Неделю назад',
-      text: 'Брали набор в подарок отцу на юбилей. Коробка солидная из плотного крафта, упаковка герметичная, ни капли запаха при распаковке. Отец в восторге от жирной чехони и ястычной икры. Очень приятно, что вес точный до грамма. Будем заказывать еще к праздникам!',
-    },
-    {
-      name: 'Дмитрий В.',
-      city: 'Екатеринбург',
-      fish: 'Лещ Цимлянский жирный (2 кг) + Вобла с икрой (1 кг)',
-      rating: 5,
-      date: '2 недели назад',
-      text: 'В наших краях такую рыбу днем с огнем не сыщешь. Лещ мясистый, спинка янтарная на просвет, брюшко тает во рту. Отдельное спасибо за быструю связь в Telegram и фотоотчет перед отправкой посылки.',
-    },
-    {
-      name: 'Алексей Морозов',
-      city: 'Казань',
-      fish: 'Судак пластованный (1 кг) + Чехонь сабельная (1 кг)',
-      rating: 5,
-      date: 'В прошлом месяце',
-      text: 'Судак книжкой идеален: чистится одним движением, мясо белое и сочное. Чехонь жирненькая, спинка на просвет чистая. Вакуумная упаковка действительно на высоте: открыл через две недели в холодильнике, как будто только с вялки сняли.',
-    },
-    {
-      name: 'Игорь Васильев',
-      city: 'Новосибирск',
-      fish: 'Вобла с икрой (3 кг) + Икра воблы в ястыках (500 г)',
-      rating: 5,
-      date: 'В прошлом месяце',
-      text: 'До Сибири СДЭКом долетело за 4 дня. Вакуум плотный, все целое. Икра воблы в ястыках — это просто шедевр, нарезали тонкими янтарными чипсами к дружеским посиделкам. Рекомендую однозначно.',
-    },
-    {
-      name: 'Владимир Павлов',
-      city: 'Краснодар',
-      fish: 'Судак книжка (1 кг) + Щука вяленая (1 кг)',
-      rating: 5,
-      date: '2 недели назад',
-      text: 'Очень порадовало, что рыба не пересолена и не деревянная. Щука плотная, волокна чистые, судак сочный. Удобно, что можно сразу в Telegram согласовать любой вес и состав.',
-    },
-  ];
+interface ReviewsSectionProps {
+  reviews?: Review[];
+}
+
+export default function ReviewsSection({ reviews = INITIAL_REVIEWS }: ReviewsSectionProps) {
+  const displayReviews = reviews && reviews.length > 0 ? reviews : INITIAL_REVIEWS;
 
   return (
     <section id="reviews" className="py-16 md:py-24 bg-[#faf7f2] border-b border-[#e8decb] scroll-mt-20">
@@ -84,7 +41,7 @@ export default function ReviewsSection() {
 
         {/* Reviews Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {reviews.map((rev, idx) => (
+          {displayReviews.map((rev, idx) => (
             <div
               key={idx}
               className="p-6 rounded-2xl bg-white border border-[#e8decb] shadow-2xs hover:border-[#dfcbb2] transition-all flex flex-col justify-between"
