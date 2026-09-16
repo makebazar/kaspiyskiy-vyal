@@ -35,6 +35,8 @@ export default function Hero({ settings, featuredProduct }: HeroProps) {
         <img
           src="/images/volga-delta-map.svg"
           alt="Дельта Волги и Каспий"
+          width={600}
+          height={600}
           className="h-[120%] max-w-none object-contain translate-x-12 translate-y-4"
         />
       </div>
@@ -147,6 +149,7 @@ export default function Hero({ settings, featuredProduct }: HeroProps) {
                   title={`Астраханская вяленая рыба — ${titleText}`}
                   width={480}
                   height={256}
+                  fetchPriority="high"
                   onError={() => setHeroImg('/images/placeholder-logo.svg')}
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                 />
