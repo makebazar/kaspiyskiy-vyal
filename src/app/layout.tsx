@@ -9,11 +9,11 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kaspiy-vyal.ru';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vyalka.ru';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Каспийский вял — Астраханская вяленая рыба с икрой | Купить с доставкой по РФ',
+  title: 'Астраханская вяленая рыба с икрой | Каспийский вял — Купить',
   description:
     'Настоящая астраханская вяленая вобла со 100% гарантией икры, судак книжкой, жирный лещ и чехонь прямо из дельты Волги. Натуральный малосол (4–6%), вакуумная упаковка без усушки. Доставка СДЭК за 2–4 дня!',
   alternates: {

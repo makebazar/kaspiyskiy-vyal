@@ -62,6 +62,7 @@ export default function ProductCard({
         <img
           src={cardImg}
           alt={product.name}
+          title={`Купить ${product.name} — вяленая рыба из Астрахани`}
           width={400}
           height={240}
           onError={() => setCardImg('/images/placeholder-logo.svg')}

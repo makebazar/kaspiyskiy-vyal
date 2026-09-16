@@ -104,29 +104,31 @@ export default function Header({ settings, cartItemCount = 0, onOpenCart }: Head
             <a
               href={tgUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="p-1.5 text-[#eedfc8]/80 hover:text-white hover:bg-[#eedfc8]/20 rounded-lg transition-all"
               title="Написать в Telegram"
               aria-label="Написать в Telegram"
             >
               <Send className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="sr-only">Telegram</span>
             </a>
 
             <a
               href={vkUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="p-1.5 text-[#eedfc8]/80 hover:text-white hover:bg-[#eedfc8]/20 rounded-lg transition-all"
               title="Написать ВКонтакте"
               aria-label="Написать ВКонтакте"
             >
               <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="sr-only">ВКонтакте</span>
             </a>
 
             <a
               href={maxUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="px-2 py-1 text-[11px] font-black text-[#eedfc8]/80 hover:text-white hover:bg-[#eedfc8]/20 rounded-lg transition-all"
               title="Написать в MAX"
               aria-label="Написать в MAX"

@@ -8,6 +8,7 @@ import Features from './Features';
 import Catalog from './Catalog';
 import DeliverySection from './DeliverySection';
 import ReviewsSection from './ReviewsSection';
+import SeoStorySection from './SeoStorySection';
 import FaqSection from './FaqSection';
 import Footer from './Footer';
 import QuickOrderModal from './QuickOrderModal';
@@ -125,6 +126,7 @@ export default function MainLanding({ initialProducts, settings, initialReviews 
         />
         <DeliverySection settings={settings} />
         <ReviewsSection reviews={initialReviews} />
+        <SeoStorySection />
         <FaqSection />
       </main>
 

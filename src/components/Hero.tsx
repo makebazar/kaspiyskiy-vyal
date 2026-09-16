@@ -144,6 +144,7 @@ export default function Hero({ settings, featuredProduct }: HeroProps) {
                 <img
                   src={heroImg}
                   alt={titleText}
+                  title={`Астраханская вяленая рыба — ${titleText}`}
                   width={480}
                   height={256}
                   onError={() => setHeroImg('/images/placeholder-logo.svg')}

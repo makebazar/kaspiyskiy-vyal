@@ -24,7 +24,7 @@ export default function FloatingContactDock({ settings }: FloatingContactDockPro
           <a
             href={tgUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             aria-label="Написать нам в Telegram"
             className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
@@ -36,7 +36,7 @@ export default function FloatingContactDock({ settings }: FloatingContactDockPro
           <a
             href={vkUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             aria-label="Написать нам ВКонтакте"
             className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >

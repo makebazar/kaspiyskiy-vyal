@@ -123,7 +123,7 @@ export default function Footer({ settings }: FooterProps) {
                 <a
                   href={settings.telegramBotOrChannelUrl || `https://t.me/${settings.telegramUsername}`}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="flex items-center justify-center py-2.5 px-2 bg-[#08172c] hover:bg-[#0c1f38] text-[#eedfc8] border border-[#eedfc8]/25 text-xs font-bold rounded-xl text-center transition-colors"
                   aria-label="Telegram"
                 >
@@ -132,7 +132,7 @@ export default function Footer({ settings }: FooterProps) {
                 <a
                   href={settings.vkChatUrl || settings.vkGroupUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="flex items-center justify-center py-2.5 px-2 bg-[#08172c] hover:bg-[#0c1f38] text-[#eedfc8] border border-[#eedfc8]/25 text-xs font-bold rounded-xl text-center transition-colors"
                   aria-label="ВКонтакте"
                 >
@@ -141,7 +141,7 @@ export default function Footer({ settings }: FooterProps) {
                 <a
                   href={settings.maxChatUrl || `https://max.ru/${settings.telegramUsername || 'kaspiy_vyal'}`}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="flex items-center justify-center py-2.5 px-2 bg-[#08172c] hover:bg-[#0c1f38] text-[#eedfc8] border border-[#eedfc8]/25 text-xs font-bold rounded-xl text-center transition-colors"
                   aria-label="MAX"
                 >
