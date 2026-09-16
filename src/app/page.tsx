@@ -3,7 +3,7 @@ import { getProducts, getSettings, getReviews } from '../lib/storage';
 import MainLanding from '../components/MainLanding';
 import { FAQ_ITEMS } from '../data/faqData';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export default function HomePage() {
   const products = getProducts();
@@ -12,13 +12,13 @@ export default function HomePage() {
 
   const jsonLdStore = {
     '@context': 'https://schema.org',
-    '@type': 'OnlineStore',
+    '@type': 'LocalBusiness',
     name: 'Каспийский вял',
     alternateName: 'Kaspiyskiy Vyal',
     description: settings.siteTagline || 'Производство и прямая доставка отборной астраханской вяленой рыбы и икры по всей России',
     url: 'https://kaspiy-vyal.ru',
     logo: 'https://kaspiy-vyal.ru/favicon.svg',
-    image: 'https://kaspiy-vyal.ru/images/og-image.svg',
+    image: 'https://kaspiy-vyal.ru/images/og-image.png',
     telephone: settings.phone,
     priceRange: '₽₽',
     currenciesAccepted: 'RUB',
@@ -33,13 +33,13 @@ export default function HomePage() {
       addressRegion: 'Астраханская область',
       addressCountry: 'RU',
     },
-    aggregateRating: {
+    aggregateRating: reviews.length > 0 ? {
       '@type': 'AggregateRating',
-      ratingValue: '4.98',
-      reviewCount: '850',
+      ratingValue: (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(2),
+      reviewCount: String(reviews.length),
       bestRating: '5',
       worstRating: '1',
-    },
+    } : undefined,
     hasMerchantReturnPolicy: {
       '@type': 'MerchantReturnPolicy',
       applicableCountry: 'RU',
@@ -78,16 +78,10 @@ export default function HomePage() {
         name: prod.name,
         description: prod.description,
         image: prod.images && prod.images.length > 0 ? prod.images[0] : undefined,
+        sku: prod.id,
         brand: {
           '@type': 'Brand',
           name: 'Каспийский вял',
-        },
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '4.95',
-          reviewCount: '142',
-          bestRating: '5',
-          worstRating: '1',
         },
         offers: {
           '@type': 'Offer',

@@ -192,76 +192,84 @@ export default function Header({ settings, cartItemCount = 0, onOpenCart }: Head
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer — full-screen overlay so page content doesn't bleed through */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-t border-[#eedfc8]/15 bg-[#08172c] px-4 py-5 shadow-2xl animate-modal text-[#eedfc8]">
-          <div className="flex flex-col gap-3 mb-5">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold tracking-wider uppercase text-[#eedfc8]/90 hover:text-[#eedfc8] py-1"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-
-          <div className="flex flex-col gap-2 pt-3 border-t border-[#eedfc8]/15">
-            {onOpenCart && (
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenCart();
-                }}
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#eedfc8] text-[#08172c] font-black text-xs rounded-xl shadow-xs"
-              >
-                <ShoppingBag className="w-4 h-4" />
-                <span>Открыть корзину ({cartItemCount})</span>
-              </button>
-            )}
-
-            {/* 3 Messenger Buttons in 1 Single Horizontal Row */}
-            <div className="grid grid-cols-3 gap-2">
-              <a
-                href={tgUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center py-2.5 px-2 bg-[#eedfc8]/15 hover:bg-[#eedfc8]/25 text-[#eedfc8] border border-[#eedfc8]/30 font-bold text-xs rounded-xl text-center transition-colors"
-                aria-label="Написать в Telegram"
-              >
-                <span>Telegram</span>
-              </a>
-              <a
-                href={vkUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center py-2.5 px-2 bg-[#eedfc8]/15 hover:bg-[#eedfc8]/25 text-[#eedfc8] border border-[#eedfc8]/30 font-bold text-xs rounded-xl text-center transition-colors"
-                aria-label="Написать ВКонтакте"
-              >
-                <span>ВКонтакте</span>
-              </a>
-              <a
-                href={maxUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center py-2.5 px-2 bg-[#eedfc8]/15 hover:bg-[#eedfc8]/25 text-[#eedfc8] border border-[#eedfc8]/30 font-bold text-xs rounded-xl text-center transition-colors"
-                aria-label="Написать в MAX"
-              >
-                <span>MAX</span>
-              </a>
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 z-30 bg-black/60 sm:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="sm:hidden fixed top-0 left-0 right-0 z-40 border-t border-[#eedfc8]/15 bg-[#08172c] px-4 py-5 shadow-2xl animate-modal text-[#eedfc8]" style={{ top: '56px' }}>
+            <div className="flex flex-col gap-3 mb-5">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-semibold tracking-wider uppercase text-[#eedfc8]/90 hover:text-[#eedfc8] py-1"
+                >
+                  {link.name}
+                </a>
+              ))}
             </div>
 
-            <a
-              href={`tel:${settings.phone}`}
-              className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#eedfc8] hover:bg-[#f7f0e4] text-[#08172c] font-bold text-xs rounded-xl transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              <span className="tabular-nums">{settings.phoneDisplay}</span>
-            </a>
+            <div className="flex flex-col gap-2 pt-3 border-t border-[#eedfc8]/15">
+              {onOpenCart && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenCart();
+                  }}
+                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#eedfc8] text-[#08172c] font-black text-xs rounded-xl shadow-xs"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>Открыть корзину ({cartItemCount})</span>
+                </button>
+              )}
+
+              {/* 3 Messenger Buttons in 1 Single Horizontal Row */}
+              <div className="grid grid-cols-3 gap-2">
+                <a
+                  href={tgUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center py-2.5 px-2 bg-[#eedfc8]/15 hover:bg-[#eedfc8]/25 text-[#eedfc8] border border-[#eedfc8]/30 font-bold text-xs rounded-xl text-center transition-colors"
+                  aria-label="Написать в Telegram"
+                >
+                  <span>Telegram</span>
+                </a>
+                <a
+                  href={vkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center py-2.5 px-2 bg-[#eedfc8]/15 hover:bg-[#eedfc8]/25 text-[#eedfc8] border border-[#eedfc8]/30 font-bold text-xs rounded-xl text-center transition-colors"
+                  aria-label="Написать ВКонтакте"
+                >
+                  <span>ВКонтакте</span>
+                </a>
+                <a
+                  href={maxUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center py-2.5 px-2 bg-[#eedfc8]/15 hover:bg-[#eedfc8]/25 text-[#eedfc8] border border-[#eedfc8]/30 font-bold text-xs rounded-xl text-center transition-colors"
+                  aria-label="Написать в MAX"
+                >
+                  <span>MAX</span>
+                </a>
+              </div>
+
+              <a
+                href={`tel:${settings.phone}`}
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#eedfc8] hover:bg-[#f7f0e4] text-[#08172c] font-bold text-xs rounded-xl transition-colors"
+              >
+                <Phone className="w-4 h-4" />
+                <span className="tabular-nums">{settings.phoneDisplay}</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

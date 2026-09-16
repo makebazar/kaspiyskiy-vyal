@@ -1,5 +1,13 @@
 import type { Metadata, Viewport } from 'next';
+import { Playfair_Display } from 'next/font/google';
 import './globals.css';
+
+const playfair = Playfair_Display({
+  subsets: ['cyrillic', 'latin'],
+  weight: ['400', '700', '900'],
+  display: 'swap',
+  variable: '--font-playfair',
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kaspiy-vyal.ru';
 
@@ -46,7 +54,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/og-image.svg',
+        url: '/images/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Каспийский вял — Астраханская вяленая рыба и икра',
@@ -57,7 +65,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Каспийский вял: Настоящая астраханская вяленая рыба',
     description: 'Вобла со 100% икрой, судак, чехонь, лещ в вакууме с доставкой СДЭК по всей РФ.',
-    images: ['/images/og-image.svg'],
+    images: ['/images/og-image.png'],
   },
   robots: {
     index: true,
@@ -85,7 +93,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className="scroll-smooth">
+    <html lang="ru" className={`scroll-smooth ${playfair.variable}`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>

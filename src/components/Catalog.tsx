@@ -98,32 +98,36 @@ export default function Catalog({
         </div>
 
         {/* Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-5 scrollbar-none" role="tablist" aria-label="Категории рыбы">
-          {CATEGORIES.map((cat) => {
-            const isActive = selectedCategory === cat.id;
-            const count = cat.id === 'all' 
-              ? initialProducts.length 
-              : initialProducts.filter(p => p.category === cat.id).length;
+        <div className="relative mb-5">
+          {/* Fade hint — shows more tabs exist to the right */}
+          <div className="absolute right-0 top-0 bottom-3 w-10 bg-gradient-to-l from-[#faf7f2] to-transparent pointer-events-none z-10 lg:hidden" aria-hidden="true" />
+          <div className="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none" role="tablist" aria-label="Категории рыбы">
+            {CATEGORIES.map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              const count = cat.id === 'all' 
+                ? initialProducts.length 
+                : initialProducts.filter(p => p.category === cat.id).length;
 
-            return (
-              <button
-                key={cat.id}
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#08172c] ${
-                  isActive
-                    ? 'bg-[#08172c] text-[#eedfc8] shadow-sm'
-                    : 'bg-white text-[#08172c] hover:bg-[#f5ebd9] border border-[#e8decb]'
-                }`}
-              >
-                <span>{cat.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.2 rounded-full tabular-nums ${isActive ? 'bg-[#0c1f38] text-[#eedfc8]' : 'bg-[#faf7f2] text-slate-500'}`}>
-                  {count}
-                </span>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={cat.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#08172c] ${
+                    isActive
+                      ? 'bg-[#08172c] text-[#eedfc8] shadow-sm'
+                      : 'bg-white text-[#08172c] hover:bg-[#f5ebd9] border border-[#e8decb]'
+                  }`}
+                >
+                  <span>{cat.label}</span>
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full tabular-nums ${isActive ? 'bg-[#0c1f38] text-[#eedfc8]' : 'bg-[#faf7f2] text-slate-500'}`}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Quick Filter Badges */}

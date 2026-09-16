@@ -29,7 +29,7 @@ body {
 }
 
 .font-brand-serif {
-  font-family: "Playfair Display", "Times New Roman", Georgia, serif;
+  font-family: var(--font-playfair), "Playfair Display", "Times New Roman", Georgia, serif;
 }
 
 /* Custom smooth scrollbar */

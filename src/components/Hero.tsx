@@ -41,12 +41,29 @@ export default function Hero({ settings, featuredProduct }: HeroProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Brand Banner Top Row: Emblem + Pillars */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 pb-6 sm:pb-8 mb-6 sm:mb-8 border-b border-[#eedfc8]/15">
-          
-          {/* Official Emblem & Typography */}
-          <div className="flex items-center gap-4 sm:gap-5">
-            <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full border-2 border-[#eedfc8] flex items-center justify-center p-1.5 sm:p-2 bg-[#061324] shadow-lg shrink-0">
+        {/* Mobile: compact trust strip | Desktop: emblem + pillars row */}
+        {/* Mobile trust strip — replaces bulky logo + 3 stacked rows */}
+        <div className="flex lg:hidden items-center justify-center gap-3 pb-5 mb-5 border-b border-[#eedfc8]/15 flex-wrap">
+          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#eedfc8]/80 uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#eedfc8]/70 shrink-0" aria-hidden="true" />
+            Малосол 4–6%
+          </span>
+          <span className="text-[#eedfc8]/30">·</span>
+          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#eedfc8]/80 uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#eedfc8]/70 shrink-0" aria-hidden="true" />
+            100% икры в вобле
+          </span>
+          <span className="text-[#eedfc8]/30">·</span>
+          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#eedfc8]/80 uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#eedfc8]/70 shrink-0" aria-hidden="true" />
+            СДЭК 2–4 дня
+          </span>
+        </div>
+
+        {/* Desktop: emblem + pillars row */}
+        <div className="hidden lg:flex items-center justify-between gap-8 pb-8 mb-8 border-b border-[#eedfc8]/15">
+          <div className="flex items-center gap-5">
+            <div className="w-18 h-18 rounded-full border-2 border-[#eedfc8] flex items-center justify-center p-2 bg-[#061324] shadow-lg shrink-0">
               <svg viewBox="0 0 100 100" className="w-full h-full text-[#eedfc8]" fill="none" stroke="currentColor" aria-hidden="true">
                 <circle cx="50" cy="50" r="46" strokeWidth="2.5"/>
                 <path d="M70,28 C73,25 76,25 78,28 C80,25 83,25 86,28 C82,29 79,31 78,32 C77,31 74,29 70,28 Z" fill="currentColor"/>
@@ -55,44 +72,25 @@ export default function Hero({ settings, featuredProduct }: HeroProps) {
                 <path d="M18,80 C32,70 42,85 58,75 C72,65 82,80 88,76" strokeWidth="2" strokeLinecap="round"/>
               </svg>
             </div>
-
             <div className="flex flex-col items-start text-left">
-              <span className="text-[10px] sm:text-xs font-brand-serif font-bold tracking-[0.35em] text-[#eedfc8]/80 uppercase block leading-none mb-1">
-                Каспийский
-              </span>
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-brand-serif font-black tracking-[0.22em] text-[#eedfc8] block leading-none mb-1.5">
-                ВЯЛ
-              </span>
-              <div className="h-[1.5px] w-16 sm:w-20 bg-[#eedfc8]/50" />
+              <span className="text-xs font-brand-serif font-bold tracking-[0.35em] text-[#eedfc8]/80 uppercase block leading-none mb-1">Каспийский</span>
+              <span className="text-4xl font-brand-serif font-black tracking-[0.22em] text-[#eedfc8] block leading-none mb-1.5">ВЯЛ</span>
+              <div className="h-[1.5px] w-20 bg-[#eedfc8]/50" />
             </div>
           </div>
-
-          {/* 3 Pillars: Clean, symmetrical badges on mobile and horizontal row on desktop */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:flex lg:items-center gap-2 sm:gap-3 lg:gap-8 w-full lg:w-auto">
-            <div className="hidden lg:block w-[1px] h-10 bg-[#eedfc8]/25" />
-            
-            <div className="flex items-center gap-2.5 px-3.5 py-2 sm:px-0 sm:py-0 rounded-xl bg-[#eedfc8]/8 sm:bg-transparent border border-[#eedfc8]/15 sm:border-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#eedfc8] shrink-0" aria-hidden="true" />
-              <span className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-[#eedfc8]/90">
-                Натуральный малосол (4–6%)
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2.5 px-3.5 py-2 sm:px-0 sm:py-0 rounded-xl bg-[#eedfc8]/8 sm:bg-transparent border border-[#eedfc8]/15 sm:border-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#eedfc8] shrink-0" aria-hidden="true" />
-              <span className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-[#eedfc8]/90">
-                100% гарантия икры в вобле
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2.5 px-3.5 py-2 sm:px-0 sm:py-0 rounded-xl bg-[#eedfc8]/8 sm:bg-transparent border border-[#eedfc8]/15 sm:border-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#eedfc8] shrink-0" aria-hidden="true" />
-              <span className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-[#eedfc8]/90">
-                Из Астрахани в вакууме
-              </span>
-            </div>
+          <div className="flex items-center gap-8">
+            <div className="w-[1px] h-10 bg-[#eedfc8]/25" />
+            {[
+              'Натуральный малосол (4–6%)',
+              '100% гарантия икры в вобле',
+              'Из Астрахани в вакууме',
+            ].map((text) => (
+              <div key={text} className="flex items-center gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#eedfc8] shrink-0" aria-hidden="true" />
+                <span className="text-xs font-semibold tracking-wider uppercase text-[#eedfc8]/90">{text}</span>
+              </div>
+            ))}
           </div>
-
         </div>
 
         {/* Main Hero Content Split */}

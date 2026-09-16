@@ -28,15 +28,20 @@ export default function ReviewsSection({ reviews = INITIAL_REVIEWS }: ReviewsSec
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5 bg-white px-4 py-2.5 rounded-2xl border border-[#e8decb] shadow-xs self-start sm:self-auto">
-            <div className="flex text-[#dfa143]">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-[#dfa143]" aria-hidden="true" />
-              ))}
-            </div>
-            <span className="text-xs font-black text-[#08172c] tabular-nums">4.98 из 5.0</span>
-            <span className="text-[11px] text-slate-500 tabular-nums">(более 850 заказов по РФ)</span>
-          </div>
+          {displayReviews.length > 0 && (() => {
+            const avg = (displayReviews.reduce((s, r) => s + r.rating, 0) / displayReviews.length).toFixed(2);
+            return (
+              <div className="flex items-center gap-2.5 bg-white px-4 py-2.5 rounded-2xl border border-[#e8decb] shadow-xs self-start sm:self-auto">
+                <div className="flex text-[#dfa143]">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-[#dfa143]" aria-hidden="true" />
+                  ))}
+                </div>
+                <span className="text-xs font-black text-[#08172c] tabular-nums">{avg} из 5.0</span>
+                <span className="text-[11px] text-slate-500 tabular-nums">({displayReviews.length} отзывов)</span>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Reviews Grid */}

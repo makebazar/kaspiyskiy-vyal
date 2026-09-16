@@ -34,11 +34,11 @@ export default function Footer({ settings }: FooterProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-6 text-xs uppercase tracking-widest text-[#eedfc8]/80 font-semibold">
+          <div className="flex items-center justify-center sm:justify-start flex-wrap gap-x-3 gap-y-1 text-xs uppercase tracking-widest text-[#eedfc8]/80 font-semibold text-center sm:text-left">
             <span>Натурально и вкусно</span>
-            <span className="hidden sm:inline">·</span>
+            <span className="text-[#eedfc8]/30">·</span>
             <span>Традиции качества</span>
-            <span className="hidden sm:inline">·</span>
+            <span className="text-[#eedfc8]/30">·</span>
             <span>Из Астрахани с любовью</span>
           </div>
         </div>
