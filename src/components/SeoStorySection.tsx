@@ -8,7 +8,7 @@ export default function SeoStorySection() {
         
         {/* Main Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#9c7847] uppercase block mb-1">
+          <span className="text-xs font-semibold tracking-[0.25em] text-[#735634] uppercase block mb-1">
             Культура и традиции дельты Волги
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-brand-serif font-bold text-[#08172c] tracking-tight text-balance">
@@ -67,30 +67,30 @@ export default function SeoStorySection() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-700 leading-relaxed">
             <div className="p-5 rounded-2xl bg-white border border-[#e8decb]">
-              <h4 className="font-bold text-[#08172c] text-sm mb-1.5 flex items-center gap-1.5">
+              <h3 className="font-bold text-[#08172c] text-sm mb-1.5 flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#dfa143]" />
                 Астраханская вобла с икрой
-              </h4>
+              </h3>
               <p>
                 Главная визитная карточка Каспия. Отличается плотной янтарной спинкой, просвечивающей на солнце, и цельным бруском зрелой зернистой икры от головы до хвоста. Чистится легко, оставляя на пальцах аппетитный сок.
               </p>
             </div>
 
             <div className="p-5 rounded-2xl bg-white border border-[#e8decb]">
-              <h4 className="font-bold text-[#08172c] text-sm mb-1.5 flex items-center gap-1.5">
+              <h3 className="font-bold text-[#08172c] text-sm mb-1.5 flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#dfa143]" />
                 Судак пластованный «книжкой»
-              </h4>
+              </h3>
               <p>
                 Диетический хищник слабой соли. Разделан вдоль хребта пластом, полностью освобожден от мелких костей. Чистейшее белое мясо легко разделяется на аппетитные сочные волокна. Идеален для ценителей нежирной рыбы.
               </p>
             </div>
 
             <div className="p-5 rounded-2xl bg-white border border-[#e8decb]">
-              <h4 className="font-bold text-[#08172c] text-sm mb-1.5 flex items-center gap-1.5">
+              <h3 className="font-bold text-[#08172c] text-sm mb-1.5 flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#dfa143]" />
                 Волжский лещ и сабельная чехонь
-              </h4>
+              </h3>
               <p>
                 Крупный волжский лещ славится своей неповторимой жирностью и глубоким классическим ароматом, а сабельная чехонь порадует янтарным жирком и тонким нежным вкусом истинного речного деликатеса.
               </p>
@@ -103,8 +103,8 @@ export default function SeoStorySection() {
           
           <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#e8decb] shadow-xs">
             <div className="flex items-center gap-2.5 mb-3 text-[#08172c] font-bold text-sm sm:text-base font-brand-serif">
-              <UtensilsCrossed className="w-5 h-5 text-[#9c7847]" aria-hidden="true" />
-              <h4>Как правильно подавать вяленую рыбу малосола</h4>
+              <UtensilsCrossed className="w-5 h-5 text-[#735634]" aria-hidden="true" />
+              <h3>Как правильно подавать вяленую рыбу малосола</h3>
             </div>
             <p className="text-xs text-slate-600 leading-relaxed mb-3">
               После вскрытия плотной вакуумной упаковки дайте рыбе «подышать» при комнатной температуре 15–20 минут. Это раскроет весь букет эфирных ароматов натурального каспийского вяла, а янтарный жирок станет мягким и тающим.
@@ -123,8 +123,8 @@ export default function SeoStorySection() {
 
           <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#e8decb] shadow-xs">
             <div className="flex items-center gap-2.5 mb-3 text-[#08172c] font-bold text-sm sm:text-base font-brand-serif">
-              <Thermometer className="w-5 h-5 text-[#9c7847]" aria-hidden="true" />
-              <h4>Правила хранения в домашних условиях</h4>
+              <Thermometer className="w-5 h-5 text-[#735634]" aria-hidden="true" />
+              <h3>Правила хранения в домашних условиях</h3>
             </div>
             <p className="text-xs text-slate-600 leading-relaxed mb-3">
               В запечатанном фирменном вакууме рыба сохраняет первозданную свежесть, сочность и органолептику до 6 месяцев в обычном холодильнике при температуре от 0°C до +6°C.

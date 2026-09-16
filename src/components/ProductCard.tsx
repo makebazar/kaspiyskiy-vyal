@@ -116,7 +116,7 @@ export default function ProductCard({
 
           {/* Weight / Caliber Info */}
           {product.weightInfo && (
-            <p className="text-xs text-[#9c7847] font-semibold mb-2">
+            <p className="text-xs text-[#735634] font-semibold mb-2">
               Калибр: {product.weightInfo}
             </p>
           )}
@@ -189,7 +189,7 @@ export default function ProductCard({
                 за {selectedWeight.label}
               </span>
               {currentOldPrice && (
-                <span className="text-xs line-through text-slate-400 font-medium ml-1 tabular-nums">
+                <span className="text-xs line-through text-slate-500 font-medium ml-1 tabular-nums">
                   {currentOldPrice.toLocaleString('ru-RU')} ₽
                 </span>
               )}

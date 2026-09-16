@@ -295,8 +295,8 @@ export default function CartDrawer({
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-xs font-bold text-[#08172c] truncate">{item.name}</h4>
-                          <p className="text-[11px] text-[#9c7847] font-semibold">
+                          <div className="text-xs font-bold text-[#08172c] truncate">{item.name}</div>
+                          <p className="text-[11px] text-[#735634] font-semibold">
                             Фасовка: {item.weightLabel} ({item.pricePerUnit.toLocaleString('ru-RU')} ₽/{item.unit})
                           </p>
                           <div className="text-xs font-brand-serif font-black text-[#08172c] mt-0.5 tabular-nums">

@@ -8,7 +8,7 @@ export default function Features() {
         
         {/* Section Title */}
         <div className="max-w-3xl mb-12">
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#bda78d] uppercase block mb-1">
+          <span className="text-xs font-semibold tracking-[0.25em] text-[#735634] uppercase block mb-1">
             Традиции астраханских рыбаков
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-brand-serif font-bold text-[#08172c] tracking-tight text-balance">

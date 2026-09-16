@@ -10,6 +10,16 @@ export default function HomePage() {
   const settings = getSettings();
   const reviews = getReviews();
 
+  const getProductImageUrl = (img?: string): string => {
+    if (!img || img.endsWith('.svg')) return 'https://vyalka.ru/images/og-image.png';
+    if (img.startsWith('http://') || img.startsWith('https://')) return img;
+    return `https://vyalka.ru${img.startsWith('/') ? '' : '/'}${img}`;
+  };
+
+  const avgRating = reviews.length > 0
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+    : undefined;
+
   const jsonLdStore = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -17,7 +27,7 @@ export default function HomePage() {
     alternateName: 'Kaspiyskiy Vyal',
     description: settings.siteTagline || 'Производство и прямая доставка отборной астраханской вяленой рыбы и икры по всей России',
     url: 'https://vyalka.ru',
-    logo: 'https://vyalka.ru/favicon.svg',
+    logo: 'https://vyalka.ru/images/og-image.png',
     image: 'https://vyalka.ru/images/og-image.png',
     telephone: settings.phone,
     priceRange: '₽₽',
@@ -33,9 +43,9 @@ export default function HomePage() {
       addressRegion: 'Астраханская область',
       addressCountry: 'RU',
     },
-    aggregateRating: reviews.length > 0 ? {
+    aggregateRating: avgRating ? {
       '@type': 'AggregateRating',
-      ratingValue: (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(2),
+      ratingValue: avgRating,
       reviewCount: String(reviews.length),
       bestRating: '5',
       worstRating: '1',
@@ -47,6 +57,8 @@ export default function HomePage() {
       merchantReturnDays: 14,
       returnMethod: 'https://schema.org/ReturnByMail',
       returnFees: 'https://schema.org/FreeReturn',
+      refundType: 'https://schema.org/FullRefund',
+      merchantReturnLink: 'https://vyalka.ru/#guarantee',
     },
     sameAs: [
       settings.telegramBotOrChannelUrl || `https://t.me/${settings.telegramUsername}`,
@@ -76,22 +88,41 @@ export default function HomePage() {
       item: {
         '@type': 'Product',
         name: prod.name,
-        description: prod.description,
-        image: prod.images && prod.images.length > 0 ? prod.images[0] : undefined,
+        description: prod.description || prod.name,
+        image: getProductImageUrl(prod.images && prod.images.length > 0 ? prod.images[0] : undefined),
         sku: prod.id,
         brand: {
           '@type': 'Brand',
           name: 'Каспийский вял',
         },
+        aggregateRating: avgRating ? {
+          '@type': 'AggregateRating',
+          ratingValue: avgRating,
+          reviewCount: String(reviews.length),
+          bestRating: '5',
+          worstRating: '1',
+        } : undefined,
         offers: {
           '@type': 'Offer',
+          url: 'https://vyalka.ru/#catalog',
           price: prod.price,
           priceCurrency: 'RUB',
           priceValidUntil: '2026-12-31',
+          itemCondition: 'https://schema.org/NewCondition',
           availability: prod.status === 'in_stock' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
           seller: {
             '@type': 'Organization',
             name: 'Каспийский вял',
+          },
+          hasMerchantReturnPolicy: {
+            '@type': 'MerchantReturnPolicy',
+            applicableCountry: 'RU',
+            returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+            merchantReturnDays: 14,
+            returnMethod: 'https://schema.org/ReturnByMail',
+            returnFees: 'https://schema.org/FreeReturn',
+            refundType: 'https://schema.org/FullRefund',
+            merchantReturnLink: 'https://vyalka.ru/#guarantee',
           },
           shippingDetails: {
             '@type': 'OfferShippingDetails',

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Product, SiteSettings, CartItem, Review } from '../types/product';
 import Header from './Header';
 import Hero from './Hero';
@@ -11,8 +12,9 @@ import ReviewsSection from './ReviewsSection';
 import SeoStorySection from './SeoStorySection';
 import FaqSection from './FaqSection';
 import Footer from './Footer';
-import QuickOrderModal from './QuickOrderModal';
-import CartDrawer from './CartDrawer';
+
+const QuickOrderModal = dynamic(() => import('./QuickOrderModal'), { ssr: false });
+const CartDrawer = dynamic(() => import('./CartDrawer'), { ssr: false });
 
 interface MainLandingProps {
   initialProducts: Product[];

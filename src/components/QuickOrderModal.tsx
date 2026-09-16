@@ -161,8 +161,8 @@ export default function QuickOrderModal({
               {/* Product Brief */}
               <div className="p-3 rounded-2xl bg-[#faf7f2] border border-[#e8decb] flex items-center justify-between">
                 <div className="pr-2">
-                  <h4 className="text-xs font-bold text-[#08172c] leading-tight">{product.name}</h4>
-                  <span className="text-[11px] text-[#9c7847] font-bold block mt-0.5">
+                  <div className="text-xs font-bold text-[#08172c] leading-tight">{product.name}</div>
+                  <span className="text-[11px] text-[#735634] font-bold block mt-0.5">
                     Фасовка: {weightName} ({unitPrice.toLocaleString('ru-RU')} ₽)
                   </span>
                 </div>

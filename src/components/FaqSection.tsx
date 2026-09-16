@@ -17,7 +17,7 @@ export default function FaqSection() {
         
         {/* Title */}
         <div className="text-center mb-12">
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#bda78d] uppercase block mb-1">
+          <span className="text-xs font-semibold tracking-[0.25em] text-[#735634] uppercase block mb-1">
             Полезная информация
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-brand-serif font-bold text-[#08172c] tracking-tight text-balance">
@@ -49,7 +49,7 @@ export default function FaqSection() {
                 >
                   <span>{item.q}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#bda78d] shrink-0 transition-transform duration-200 ${
+                    className={`w-5 h-5 text-[#735634] shrink-0 transition-transform duration-200 ${
                       isOpen ? 'rotate-180 text-[#08172c]' : ''
                     }`}
                     aria-hidden="true"

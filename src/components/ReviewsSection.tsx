@@ -17,7 +17,7 @@ export default function ReviewsSection({ reviews = INITIAL_REVIEWS }: ReviewsSec
         {/* Title */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-xs font-semibold tracking-[0.25em] text-[#bda78d] uppercase block mb-1">
+            <span className="text-xs font-semibold tracking-[0.25em] text-[#735634] uppercase block mb-1">
               Честные отзывы покупателей
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-brand-serif font-bold text-[#08172c] tracking-tight text-balance">
@@ -56,12 +56,12 @@ export default function ReviewsSection({ reviews = INITIAL_REVIEWS }: ReviewsSec
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <h4 className="text-xs font-bold text-[#08172c]">{rev.name}</h4>
+                      <h3 className="text-xs font-bold text-[#08172c]">{rev.name}</h3>
                       <span className="inline-flex items-center gap-1 text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                         <CheckCircle className="w-3 h-3" aria-hidden="true" /> Проверен
                       </span>
                     </div>
-                    <span className="text-[11px] text-slate-400">{rev.city} · {rev.date}</span>
+                    <span className="text-[11px] text-slate-500">{rev.city} · {rev.date}</span>
                   </div>
 
                   {/* Stars */}
@@ -84,11 +84,11 @@ export default function ReviewsSection({ reviews = INITIAL_REVIEWS }: ReviewsSec
               </div>
 
               {/* Bottom tag */}
-              <div className="mt-4 pt-3 border-t border-[#e8decb]/60 flex items-center justify-between text-[11px] text-slate-400">
+              <div className="mt-4 pt-3 border-t border-[#e8decb]/60 flex items-center justify-between text-[11px] text-slate-500">
                 <span className="flex items-center gap-1 text-slate-600 font-medium">
                   <ThumbsUp className="w-3 h-3 text-[#08172c]" aria-hidden="true" /> Рекомендует
                 </span>
-                <span className="text-[#bda78d] font-serif font-bold text-xs">Каспийский вял</span>
+                <span className="text-[#735634] font-serif font-bold text-xs">Каспийский вял</span>
               </div>
             </div>
           ))}

@@ -21,7 +21,7 @@ export default function DeliverySection({ settings }: DeliveryProps) {
         
         {/* Title */}
         <div className="max-w-3xl mb-12">
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#bda78d] uppercase block mb-1">
+          <span className="text-xs font-semibold tracking-[0.25em] text-[#735634] uppercase block mb-1">
             Свежесть гарантирована
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-brand-serif font-bold text-[#08172c] tracking-tight text-balance">
@@ -50,7 +50,7 @@ export default function DeliverySection({ settings }: DeliveryProps) {
                     ✓
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#eedfc8]">Без усушки и потери сочности в пути</h4>
+                    <h3 className="text-sm font-bold text-[#eedfc8]">Без усушки и потери сочности в пути</h3>
                     <p className="text-xs text-[#eedfc8]/70 mt-0.5 leading-relaxed">
                       Влага и природный янтарный жирок остаются внутри мякоти. Икра сохраняет упругую зернистую структуру без пересыхания.
                     </p>
@@ -62,7 +62,7 @@ export default function DeliverySection({ settings }: DeliveryProps) {
                     ✓
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#eedfc8]">100% без рыбных запахов в пункте выдачи</h4>
+                    <h3 className="text-sm font-bold text-[#eedfc8]">100% без рыбных запахов в пункте выдачи</h3>
                     <p className="text-xs text-[#eedfc8]/70 mt-0.5 leading-relaxed">
                       Многослойный барьерный пакет надежно блокирует любой запах. Посылку удобно забирать в СДЭКе или на Почте.
                     </p>
@@ -74,7 +74,7 @@ export default function DeliverySection({ settings }: DeliveryProps) {
                     ✓
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#eedfc8]">Хранение до 6 месяцев в холодильнике</h4>
+                    <h3 className="text-sm font-bold text-[#eedfc8]">Хранение до 6 месяцев в холодильнике</h3>
                     <p className="text-xs text-[#eedfc8]/70 mt-0.5 leading-relaxed">
                       Вы можете взять запас деликатесов на несколько месяцев вперед: в невскрытом вакууме рыба не теряет качества.
                     </p>
@@ -96,7 +96,7 @@ export default function DeliverySection({ settings }: DeliveryProps) {
             <div className="p-6 rounded-2xl bg-[#faf7f2] border border-[#e8decb]">
               <div className="flex items-center gap-2 mb-4">
                 <MapPin className="w-4 h-4 text-[#08172c]" aria-hidden="true" />
-                <h4 className="text-sm font-bold text-[#08172c] uppercase tracking-wider">Сроки доставки из Астрахани</h4>
+                <h3 className="text-sm font-bold text-[#08172c] uppercase tracking-wider">Сроки доставки из Астрахани</h3>
               </div>
 
               <div className="space-y-2.5">
@@ -104,7 +104,7 @@ export default function DeliverySection({ settings }: DeliveryProps) {
                   <div key={idx} className="flex items-center justify-between text-xs py-1.5 border-b border-[#e8decb]/60 last:border-0">
                     <span className="text-slate-700 font-medium">{reg.name}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-slate-400 hidden sm:inline">{reg.service}</span>
+                      <span className="text-[11px] text-slate-500 hidden sm:inline">{reg.service}</span>
                       <span className="px-2 py-0.5 rounded-full bg-[#eedfc8] text-[#08172c] font-bold text-[11px] tabular-nums">
                         {reg.time}
                       </span>

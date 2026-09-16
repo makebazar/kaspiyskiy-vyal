@@ -72,7 +72,7 @@ export default function Catalog({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <span className="text-xs font-semibold tracking-[0.25em] text-[#bda78d] uppercase block mb-1">
+            <span className="text-xs font-semibold tracking-[0.25em] text-[#735634] uppercase block mb-1">
               Натуральный посол без химии
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-brand-serif font-bold text-[#08172c] tracking-tight text-balance">
@@ -85,14 +85,14 @@ export default function Catalog({
 
           {/* Search Bar */}
           <div className="relative w-full md:w-72">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" aria-hidden="true" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Поиск по рыбе (напр. судак)…"
               aria-label="Поиск по каталогу рыбы"
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-[#e8decb] bg-white text-xs sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#08172c] focus-visible:border-[#08172c] transition-all placeholder:text-slate-400"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-[#e8decb] bg-white text-xs sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#08172c] focus-visible:border-[#08172c] transition-all placeholder:text-slate-500"
             />
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function Catalog({
 
         {/* Quick Filter Badges */}
         <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 sm:pb-0 sm:flex-wrap mb-8 text-xs font-semibold">
-          <span className="text-slate-400 flex items-center gap-1 mr-0.5 shrink-0">
+          <span className="text-slate-600 flex items-center gap-1 mr-0.5 shrink-0">
             <Filter className="w-3.5 h-3.5" aria-hidden="true" /> Фильтр:
           </span>
 

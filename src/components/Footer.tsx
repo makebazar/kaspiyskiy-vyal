@@ -60,9 +60,9 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Col 2: Navigation */}
           <div>
-            <h4 className="text-xs font-bold text-[#eedfc8] uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-[#eedfc8] uppercase tracking-wider mb-4">
               Разделы сайта
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs text-[#eedfc8]/80">
               <li>
                 <a href="#catalog" className="hover:text-white transition-colors">
@@ -99,9 +99,9 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Col 3: Assortment */}
           <div>
-            <h4 className="text-xs font-bold text-[#eedfc8] uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-[#eedfc8] uppercase tracking-wider mb-4">
               Популярная рыба
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs text-[#eedfc8]/70">
               <li>Вобла астраханская с икрой (весенний вылов)</li>
               <li>Судак вяленый пластованный (книжкой)</li>
@@ -114,9 +114,9 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Col 4: Quick Contact Channels */}
           <div>
-            <h4 className="text-xs font-bold text-[#eedfc8] uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-[#eedfc8] uppercase tracking-wider mb-4">
               Связь и заказы
-            </h4>
+            </h3>
             <div className="space-y-2.5">
               {/* 3 Messenger Buttons in 1 Row */}
               <div className="grid grid-cols-3 gap-2">

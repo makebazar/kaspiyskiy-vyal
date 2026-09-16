@@ -3,6 +3,9 @@ const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
   compress: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
+  },
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },

@@ -11,13 +11,15 @@ interface HeroProps {
 
 export default function Hero({ settings, featuredProduct }: HeroProps) {
   const initialImage = settings.heroImage 
-    || (featuredProduct?.images?.[0] && !featuredProduct.images[0].includes('/images/products/') ? featuredProduct.images[0] : '/images/placeholder-logo.svg');
+    || featuredProduct?.images?.[0] 
+    || '/images/products/vobla-ikra.jpg';
 
   const [heroImg, setHeroImg] = useState(initialImage);
 
   useEffect(() => {
     const updated = settings.heroImage 
-      || (featuredProduct?.images?.[0] && !featuredProduct.images[0].includes('/images/products/') ? featuredProduct.images[0] : '/images/placeholder-logo.svg');
+      || featuredProduct?.images?.[0] 
+      || '/images/products/vobla-ikra.jpg';
     setHeroImg(updated);
   }, [settings.heroImage, featuredProduct]);
 
