@@ -23,6 +23,21 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.vyalka.ru',
+          },
+        ],
+        destination: 'https://vyalka.ru/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
